@@ -174,6 +174,21 @@ class PortfolioApp {
     const container = document.getElementById("skillsGridContainer");
     if (!container) return;
 
+    if (!skills || skills.length === 0) {
+      container.innerHTML = `
+        <div class="glass-card" style="grid-column: 1 / -1; padding: 48px 24px; text-align: center; border-radius: 20px;">
+          <div style="width: 56px; height: 56px; border-radius: 16px; background: rgba(139, 92, 246, 0.15); border: 1px solid rgba(139, 92, 246, 0.3); display: flex; align-items: center; justify-content: center; margin: 0 auto 16px; color: var(--accent-purple);">
+            ${ICONS.code}
+          </div>
+          <h3 style="color: var(--text-primary); font-size: 1.25rem; font-weight: 700; margin-bottom: 8px;">No Skills Listed Yet</h3>
+          <p style="color: var(--text-secondary); font-size: 0.92rem; max-width: 480px; margin: 0 auto 16px;">
+            Skills have been cleared. You can easily add, edit, and organize your own custom skills anytime from the Admin Dashboard!
+          </p>
+        </div>
+      `;
+      return;
+    }
+
     container.innerHTML = skills.map(skill => {
       const iconSvg = ICONS[skill.icon] || ICONS.code;
       return `

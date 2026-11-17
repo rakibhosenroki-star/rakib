@@ -21,10 +21,16 @@ class PortfolioStore {
         if (!mergedProfile.avatar || mergedProfile.avatar.trim() === "" || mergedProfile.avatar.includes("images.unsplash.com/photo-1534528741775-53994a69daeb")) {
           mergedProfile.avatar = window.defaultPortfolioData.profile.avatar || "assets/images/profile.jpg";
         }
+        // Filter out legacy dummy skills if present in cached localStorage
+        let skills = parsed.skills;
+        if (Array.isArray(skills) && skills.some(s => s.id === "skill-1" || s.id === "skill-2")) {
+          skills = [];
+        }
         return {
           ...window.defaultPortfolioData,
           ...parsed,
           profile: mergedProfile,
+          skills: skills || [],
           about: { ...window.defaultPortfolioData.about, ...(parsed.about || {}) },
           settings: { ...window.defaultPortfolioData.settings, ...(parsed.settings || {}) }
         };

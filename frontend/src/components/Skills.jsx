@@ -12,17 +12,7 @@ const iconMap = {
 };
 
 export default function Skills({ skills }) {
-  const defaultSkills = [
-    { name: 'HTML', category: 'Frontend', level: 95, icon: 'code', description: 'Semantic structure, accessibility, and modern HTML5 specifications.' },
-    { name: 'CSS', category: 'Frontend', level: 92, icon: 'layout', description: 'Modern CSS3, responsive layouts, Tailwind CSS, and glassmorphism styling.' },
-    { name: 'JavaScript', category: 'Frontend / Logic', level: 88, icon: 'fileCode', description: 'ES6+ standards, asynchronous JavaScript, DOM APIs, and state management.' },
-    { name: 'Web Development', category: 'Core Discipline', level: 90, icon: 'globe', description: 'End-to-end web engineering, cross-browser compatibility, and performance optimization.' },
-    { name: 'Node.js', category: 'Backend', level: 82, icon: 'server', description: 'Server-side runtime, Express.js RESTful APIs, and npm architecture.' },
-    { name: 'Database Management', category: 'Database', level: 80, icon: 'database', description: 'PostgreSQL relational database design, SQL querying, and data schema normalization.' },
-    { name: 'Creative Design', category: 'Design', level: 85, icon: 'penTool', description: 'Modern UI/UX design, glassmorphism aesthetics, color palettes, and wireframing.' }
-  ];
-
-  const skillList = skills && skills.length > 0 ? skills : defaultSkills;
+  const skillList = skills || [];
 
   return (
     <section id="skills" className="py-24 relative bg-black/20">
@@ -37,50 +27,62 @@ export default function Skills({ skills }) {
             Technical Skills &amp; <span className="bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">Capabilities</span>
           </h2>
           <p className="text-slate-400 text-sm sm:text-base">
-            Transparent breakdown of core technologies I work with. All skill metrics can be customized via the Admin Dashboard.
+            Transparent breakdown of core technologies I work with. Fully customizable via the Admin Dashboard.
           </p>
         </div>
 
         {/* Skills Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {skillList.map((skill, idx) => (
-            <div
-              key={skill.id || idx}
-              className="p-6 rounded-2xl bg-slate-900/60 backdrop-blur-xl border border-white/10 hover:border-purple-500/40 hover:-translate-y-1 transition-all shadow-xl flex flex-col justify-between relative overflow-hidden"
-            >
-              <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-white/15 to-transparent pointer-events-none" />
-              <div>
-                <div className="flex items-center justify-between mb-4">
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center">
-                      {iconMap[skill.icon] || <Code size={20} className="text-purple-400" />}
-                    </div>
-                    <div>
-                      <h3 className="font-bold text-white text-base">{skill.name}</h3>
-                      <span className="text-[11px] uppercase tracking-wider text-slate-400">{skill.category}</span>
-                    </div>
-                  </div>
-                  <span className="text-xs font-bold text-purple-400 bg-purple-500/10 px-2.5 py-1 rounded-md">
-                    {skill.level}%
-                  </span>
-                </div>
-                <p className="text-slate-300 text-xs sm:text-sm leading-relaxed mb-6">
-                  {skill.description}
-                </p>
-              </div>
-
-              {/* Progress Bar */}
-              <div>
-                <div className="w-full h-2 bg-white/10 rounded-full overflow-hidden">
-                  <div
-                    className="h-full bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-full transition-all duration-1000"
-                    style={{ width: `${skill.level}%` }}
-                  />
-                </div>
-              </div>
+        {skillList.length === 0 ? (
+          <div className="max-w-md mx-auto text-center p-8 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-xl">
+            <div className="w-12 h-12 rounded-xl bg-purple-500/20 flex items-center justify-center mx-auto mb-3 text-purple-400">
+              <Code size={24} />
             </div>
-          ))}
-        </div>
+            <h3 className="text-base font-bold text-white mb-2">No Skills Listed Yet</h3>
+            <p className="text-xs text-slate-400">
+              Skills have been cleared. Add and customize your own technical skills anytime from the Admin Dashboard!
+            </p>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {skillList.map((skill, idx) => (
+              <div
+                key={skill.id || idx}
+                className="p-6 rounded-2xl bg-slate-900/60 backdrop-blur-xl border border-white/10 hover:border-purple-500/40 hover:-translate-y-1 transition-all shadow-xl flex flex-col justify-between relative overflow-hidden"
+              >
+                <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-white/15 to-transparent pointer-events-none" />
+                <div>
+                  <div className="flex items-center justify-between mb-4">
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center">
+                        {iconMap[skill.icon] || <Code size={20} className="text-purple-400" />}
+                      </div>
+                      <div>
+                        <h3 className="font-bold text-white text-base">{skill.name}</h3>
+                        <span className="text-[11px] uppercase tracking-wider text-slate-400">{skill.category}</span>
+                      </div>
+                    </div>
+                    <span className="text-xs font-bold text-purple-400 bg-purple-500/10 px-2.5 py-1 rounded-md">
+                      {skill.level}%
+                    </span>
+                  </div>
+                  <p className="text-slate-300 text-xs sm:text-sm leading-relaxed mb-6">
+                    {skill.description}
+                  </p>
+                </div>
+
+                {/* Progress Bar */}
+                <div>
+                  <div className="w-full h-2 bg-white/10 rounded-full overflow-hidden">
+                    <div
+                      className="h-full bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-full transition-all duration-1000"
+                      style={{ width: `${skill.level}%` }}
+                    />
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
 
       </div>
     </section>

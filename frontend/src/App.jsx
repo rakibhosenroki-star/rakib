@@ -33,15 +33,7 @@ const initialPortfolioState = {
     journey: "My professional journey started with a fascination for how the internet works, which evolved into hands-on web development with HTML, CSS, and JavaScript. Over time, I progressed into modern frontend development with React, backend architecture with Node.js and Express, and structured data persistence with PostgreSQL.",
     ambitions: "My future ambitions are centered around architecting scalable, enterprise-grade cloud systems, leading innovative web design projects, mastering cutting-edge fullstack ecosystems, and mentoring aspiring developers in the tech ecosystem."
   },
-  skills: [
-    { id: 1, name: "HTML", category: "Frontend", level: 95, icon: "code", description: "Semantic structure & accessibility standards" },
-    { id: 2, name: "CSS", category: "Frontend", level: 92, icon: "layout", description: "Modern CSS3, responsive layouts, and Tailwind CSS" },
-    { id: 3, name: "JavaScript", category: "Frontend / Logic", level: 88, icon: "fileCode", description: "ES6+, Async/Await, DOM manipulation" },
-    { id: 4, name: "Web Development", category: "Core Discipline", level: 90, icon: "globe", description: "End-to-end web engineering & performance" },
-    { id: 5, name: "Node.js", category: "Backend", level: 82, icon: "server", description: "Server-side runtime, Express.js REST APIs" },
-    { id: 6, name: "Database Management", category: "Database", level: 80, icon: "database", description: "PostgreSQL schema design & SQL modeling" },
-    { id: 7, name: "Creative Design", category: "Design", level: 85, icon: "penTool", description: "Modern UI/UX, glassmorphism, wireframes" }
-  ],
+  skills: [],
   projects: [
     {
       id: 1,

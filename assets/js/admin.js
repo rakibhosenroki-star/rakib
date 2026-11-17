@@ -544,6 +544,15 @@ class AdminController {
     if (!skillsList) return;
 
     const skills = this.store.getSkills();
+    if (!skills || skills.length === 0) {
+      skillsList.innerHTML = `
+        <div style="text-align: center; padding: 32px 16px; background: rgba(255, 255, 255, 0.02); border: 1px dashed var(--border-glass); border-radius: 16px; color: var(--text-muted); font-size: 0.9rem;">
+          No skills listed yet. Use the form above to add your first custom skill!
+        </div>
+      `;
+      return;
+    }
+
     skillsList.innerHTML = skills.map(s => `
       <div class="glass-card" style="padding: 18px; display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 12px;">
         <div style="flex: 1;">

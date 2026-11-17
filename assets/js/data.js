@@ -30,64 +30,7 @@ const defaultPortfolioData = {
     ambitions: "My future ambitions are centered around architecting scalable, enterprise-grade cloud systems, leading innovative web design projects, mastering cutting-edge fullstack ecosystems, and mentoring aspiring developers in the tech ecosystem."
   },
 
-  skills: [
-    {
-      id: "skill-1",
-      name: "HTML",
-      category: "Frontend",
-      level: 95,
-      icon: "code",
-      description: "Semantic HTML5 structure, web accessibility (a11y), SEO-friendly markup, and clean document outlines."
-    },
-    {
-      id: "skill-2",
-      name: "CSS",
-      category: "Frontend",
-      level: 92,
-      icon: "layout",
-      description: "Modern CSS3, responsive layouts with Flexbox and CSS Grid, glassmorphism effects, keyframe animations, and Tailwind CSS."
-    },
-    {
-      id: "skill-3",
-      name: "JavaScript",
-      category: "Frontend / Logic",
-      level: 88,
-      icon: "file-code",
-      description: "ES6+ standards, DOM manipulation, asynchronous programming (Promises, Async/Await), modern fetch APIs, and state management."
-    },
-    {
-      id: "skill-4",
-      name: "Web Development",
-      category: "Core Discipline",
-      level: 90,
-      icon: "globe",
-      description: "End-to-end web engineering, responsive cross-browser compatibility, web performance optimization, and modular component design."
-    },
-    {
-      id: "skill-5",
-      name: "Node.js",
-      category: "Backend",
-      level: 82,
-      icon: "server",
-      description: "Server-side JavaScript runtime, Express.js RESTful API design, middleware integration, authentication handling, and npm packaging."
-    },
-    {
-      id: "skill-6",
-      name: "Database Management",
-      category: "Database",
-      level: 80,
-      icon: "database",
-      description: "PostgreSQL relational database design, SQL querying, schema normalization, data relationships, and secure storage."
-    },
-    {
-      id: "skill-7",
-      name: "Creative Design",
-      category: "Design",
-      level: 85,
-      icon: "pen-tool",
-      description: "Modern UI/UX design, glassmorphism visual aesthetics, typography, color harmony, wireframing, and interactive prototyping."
-    }
-  ],
+  skills: [],
 
   projects: [
     {
