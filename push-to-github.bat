@@ -39,6 +39,7 @@ echo.
 echo ========================================================
 echo   Pushing to GitHub (main branch)...
 echo ========================================================
+git commit -m "feat(update): update portfolio data and site assets" >nul 2>nul
 git push -u origin main
 
 echo.

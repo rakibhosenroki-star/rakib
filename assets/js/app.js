@@ -161,13 +161,13 @@ class PortfolioApp {
 
     // Stats
     const expYears = document.getElementById("statExpYears");
-    if (expYears) expYears.textContent = profile.experienceYears || "3+";
+    if (expYears) expYears.textContent = profile.experienceYears || "--";
 
     const compProjects = document.getElementById("statCompletedProjects");
-    if (compProjects) compProjects.textContent = profile.completedProjects || "15+";
+    if (compProjects) compProjects.textContent = profile.completedProjects || "--";
 
     const happyClients = document.getElementById("statHappyClients");
-    if (happyClients) happyClients.textContent = profile.happyClients || "100%";
+    if (happyClients) happyClients.textContent = profile.happyClients || "--";
   }
 
   renderSkills(skills) {
@@ -220,6 +220,22 @@ class PortfolioApp {
     const filterContainer = document.getElementById("projectsFilterContainer");
     const gridContainer = document.getElementById("projectsGridContainer");
     if (!gridContainer) return;
+
+    if (!projects || projects.length === 0) {
+      gridContainer.innerHTML = `
+        <div class="glass-card" style="grid-column: 1 / -1; padding: 48px 24px; text-align: center; border-radius: 20px;">
+          <div style="width: 56px; height: 56px; border-radius: 16px; background: rgba(99, 102, 241, 0.15); border: 1px solid rgba(99, 102, 241, 0.3); display: flex; align-items: center; justify-content: center; margin: 0 auto 16px; color: var(--accent-indigo);">
+            ${ICONS.externalLink}
+          </div>
+          <h3 style="color: var(--text-primary); font-size: 1.25rem; font-weight: 700; margin-bottom: 8px;">No Projects Showcased Yet</h3>
+          <p style="color: var(--text-secondary); font-size: 0.92rem; max-width: 480px; margin: 0 auto 16px;">
+            Demo projects have been removed. Add your real projects with screenshots, tags, and links anytime from the Admin Dashboard!
+          </p>
+        </div>
+      `;
+      if (filterContainer) filterContainer.innerHTML = "";
+      return;
+    }
 
     // Build unique categories
     const categories = ["All", ...new Set(projects.map(p => p.category))];
@@ -277,6 +293,21 @@ class PortfolioApp {
   renderServices(services) {
     const container = document.getElementById("servicesGridContainer");
     if (!container) return;
+
+    if (!services || services.length === 0) {
+      container.innerHTML = `
+        <div class="glass-card" style="grid-column: 1 / -1; padding: 48px 24px; text-align: center; border-radius: 20px;">
+          <div style="width: 56px; height: 56px; border-radius: 16px; background: rgba(236, 72, 153, 0.15); border: 1px solid rgba(236, 72, 153, 0.3); display: flex; align-items: center; justify-content: center; margin: 0 auto 16px; color: var(--accent-pink);">
+            ${ICONS.sparkles}
+          </div>
+          <h3 style="color: var(--text-primary); font-size: 1.25rem; font-weight: 700; margin-bottom: 8px;">No Services Listed Yet</h3>
+          <p style="color: var(--text-secondary); font-size: 0.92rem; max-width: 480px; margin: 0 auto 16px;">
+            Demo services have been removed. You can easily add and manage your custom services from the Admin Dashboard!
+          </p>
+        </div>
+      `;
+      return;
+    }
 
     container.innerHTML = services.map(s => {
       const iconSvg = ICONS[s.icon] || ICONS.sparkles;

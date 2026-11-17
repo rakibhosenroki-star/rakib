@@ -10,6 +10,7 @@ class AdminController {
     this.activeTab = "overview";
     this.editingProjectId = null;
     this.editingSkillId = null;
+    this.editingServiceId = null;
   }
 
   init() {
@@ -431,6 +432,86 @@ class AdminController {
         }
       });
     }
+
+    // Live GitHub Publishing & data.js Download
+    const publishLiveBtn = document.getElementById("adminPublishLiveBtn");
+    if (publishLiveBtn) {
+      publishLiveBtn.addEventListener("click", () => this.publishToGitHub());
+    }
+    const publishLiveBtnSettings = document.getElementById("adminPublishLiveBtnSettings");
+    if (publishLiveBtnSettings) {
+      publishLiveBtnSettings.addEventListener("click", () => this.publishToGitHub());
+    }
+
+    const downloadDataBtn = document.getElementById("adminDownloadDataBtn");
+    if (downloadDataBtn) {
+      downloadDataBtn.addEventListener("click", () => this.downloadDataJs());
+    }
+    const downloadDataBtnSettings = document.getElementById("adminDownloadDataBtnSettings");
+    if (downloadDataBtnSettings) {
+      downloadDataBtnSettings.addEventListener("click", () => this.downloadDataJs());
+    }
+
+    const githubTokenInput = document.getElementById("adminGithubTokenInput");
+    if (githubTokenInput) {
+      githubTokenInput.addEventListener("change", (e) => {
+        const val = e.target.value.trim();
+        if (val) {
+          localStorage.setItem("rakib_github_token", val);
+          this.showToast("GitHub টোকেন ব্রাউজারে সুরক্ষিতভাবে সেভ করা হয়েছে!", "success");
+        } else {
+          localStorage.removeItem("rakib_github_token");
+        }
+      });
+    }
+
+    // Service Management Listeners
+    const serviceForm = document.getElementById("adminServiceForm");
+    if (serviceForm) {
+      serviceForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const title = document.getElementById("servTitleInput").value.trim();
+        const icon = document.getElementById("servIconInput").value.trim() || "code";
+        const description = document.getElementById("servDescInput").value.trim();
+        const featuresStr = document.getElementById("servFeaturesInput").value.trim();
+        const features = featuresStr ? featuresStr.split(",").map(f => f.trim()).filter(Boolean) : [];
+
+        if (this.editingServiceId) {
+          this.store.updateService(this.editingServiceId, { title, icon, description, features });
+          this.showToast("Service updated successfully!", "success");
+          this.editingServiceId = null;
+        } else {
+          this.store.addService({ title, icon, description, features });
+          this.showToast("New service added successfully!", "success");
+        }
+        serviceForm.reset();
+        const card = document.getElementById("serviceEditCard");
+        if (card) card.style.display = "none";
+        this.renderServicesPanel();
+      });
+    }
+
+    const addNewServiceBtn = document.getElementById("addNewServiceBtn");
+    if (addNewServiceBtn) {
+      addNewServiceBtn.addEventListener("click", () => {
+        this.editingServiceId = null;
+        const form = document.getElementById("adminServiceForm");
+        if (form) form.reset();
+        const formTitle = document.getElementById("serviceFormTitle");
+        if (formTitle) formTitle.textContent = "Add New Service";
+        const card = document.getElementById("serviceEditCard");
+        if (card) card.style.display = "block";
+      });
+    }
+
+    const cancelServiceEditBtn = document.getElementById("cancelServiceEditBtn");
+    if (cancelServiceEditBtn) {
+      cancelServiceEditBtn.addEventListener("click", () => {
+        this.editingServiceId = null;
+        const card = document.getElementById("serviceEditCard");
+        if (card) card.style.display = "none";
+      });
+    }
   }
 
   openDashboard() {
@@ -471,6 +552,7 @@ class AdminController {
 
     if (tabId === "skills") this.renderSkillsPanel();
     if (tabId === "projects") this.renderProjectsPanel();
+    if (tabId === "services") this.renderServicesPanel();
     if (tabId === "messages") this.renderMessagesPanel();
     if (tabId === "overview") this.renderOverviewPanel();
   }
@@ -522,6 +604,12 @@ class AdminController {
         document.getElementById("socEmail").value = s.url;
       }
     });
+
+    // GitHub Token in settings
+    const tokenInput = document.getElementById("adminGithubTokenInput");
+    if (tokenInput) {
+      tokenInput.value = localStorage.getItem("rakib_github_token") || "";
+    }
 
     this.renderOverviewPanel();
   }
@@ -690,6 +778,198 @@ class AdminController {
       this.showToast("Message deleted", "success");
       this.renderMessagesPanel();
       this.renderOverviewPanel();
+    }
+  }
+
+  // --- Services Panel Handlers ---
+  renderServicesPanel() {
+    const list = document.getElementById("adminServicesList");
+    if (!list) return;
+
+    const services = this.store.getServices();
+    if (!services || services.length === 0) {
+      list.innerHTML = `
+        <div style="text-align: center; padding: 36px 16px; background: rgba(255, 255, 255, 0.02); border: 1px dashed var(--border-glass); border-radius: 16px; color: var(--text-muted); font-size: 0.9rem;">
+          No services added yet. Click "+ Add New Service" above to add what you offer to clients!
+        </div>
+      `;
+      return;
+    }
+
+    list.innerHTML = services.map(s => `
+      <div class="glass-card" style="padding: 18px; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: flex-start; gap: 14px;">
+        <div style="flex: 1;">
+          <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 6px;">
+            <strong style="color: var(--text-primary); font-size: 1.05rem;">${s.title}</strong>
+            <span class="glass-pill" style="padding: 2px 8px; font-size: 0.75rem;">${s.icon || "service"}</span>
+          </div>
+          <p style="color: var(--text-secondary); font-size: 0.88rem; margin-bottom: 8px; line-height: 1.4;">
+            ${s.description || ""}
+          </p>
+          <div style="display: flex; gap: 6px; flex-wrap: wrap;">
+            ${(s.features || []).map(f => `<span class="tech-tag" style="font-size: 0.72rem; padding: 2px 6px;">${f}</span>`).join("")}
+          </div>
+        </div>
+        <div style="display: flex; gap: 8px;">
+          <button class="btn btn-glass btn-sm" onclick="window.adminCtrl.editService('${s.id}')">Edit</button>
+          <button class="btn btn-glass btn-sm" style="color: #ef4444;" onclick="window.adminCtrl.deleteService('${s.id}')">Delete</button>
+        </div>
+      </div>
+    `).join("");
+  }
+
+  editService(id) {
+    const service = this.store.getServices().find(s => s.id === id);
+    if (!service) return;
+
+    this.editingServiceId = id;
+    const card = document.getElementById("serviceEditCard");
+    if (card) card.style.display = "block";
+
+    if (document.getElementById("servTitleInput")) document.getElementById("servTitleInput").value = service.title || "";
+    if (document.getElementById("servIconInput")) document.getElementById("servIconInput").value = service.icon || "";
+    if (document.getElementById("servDescInput")) document.getElementById("servDescInput").value = service.description || "";
+    if (document.getElementById("servFeaturesInput")) document.getElementById("servFeaturesInput").value = (service.features || []).join(", ");
+    if (document.getElementById("serviceFormTitle")) document.getElementById("serviceFormTitle").textContent = `Edit Service: ${service.title}`;
+
+    const titleInp = document.getElementById("servTitleInput");
+    if (titleInp) titleInp.focus();
+  }
+
+  deleteService(id) {
+    if (confirm("Are you sure you want to delete this service?")) {
+      this.store.deleteService(id);
+      this.showToast("Service deleted", "success");
+      this.renderServicesPanel();
+    }
+  }
+
+  // --- Live GitHub Sync & data.js Generator ---
+  generateDataJsContent() {
+    const rawData = this.store.getData();
+    const cleanData = JSON.parse(JSON.stringify(rawData));
+    if (cleanData.settings) {
+      cleanData.settings.githubToken = ""; // NEVER write secret token to repository
+    }
+    return `/**\n * MD RAKIB HASAN - PERSONAL PORTFOLIO\n * Production Data & Configurations\n */\n\nconst defaultPortfolioData = ${JSON.stringify(cleanData, null, 2)};\n\nif (typeof window !== "undefined") {\n  window.defaultPortfolioData = defaultPortfolioData;\n}\nif (typeof module !== "undefined" && module.exports) {\n  module.exports = defaultPortfolioData;\n}\n`;
+  }
+
+  downloadDataJs() {
+    try {
+      const content = this.generateDataJsContent();
+      const blob = new Blob([content], { type: "application/javascript;charset=utf-8" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "data.js";
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      this.showToast("data.js ফাইল ডাউনলোড হয়েছে! assets/js ফোল্ডারে রিপ্লেস করতে পারেন।", "success");
+    } catch (err) {
+      console.error("Download failed:", err);
+      this.showToast("Download failed: " + err.message, "error");
+    }
+  }
+
+  async publishToGitHub() {
+    let token = localStorage.getItem("rakib_github_token") || "";
+    if (!token) {
+      const tokenInp = document.getElementById("adminGithubTokenInput");
+      if (tokenInp && tokenInp.value.trim()) {
+        token = tokenInp.value.trim();
+        localStorage.setItem("rakib_github_token", token);
+      }
+    }
+
+    if (!token) {
+      token = prompt("আপনার GitHub Personal Access Token (PAT) দিন (ইন্টারনেটে ভিজিটরদের জন্য লাইভ করতে এটি ১ বার দিতে হবে):");
+      if (token && token.trim()) {
+        token = token.trim();
+        localStorage.setItem("rakib_github_token", token);
+        const tokenInp = document.getElementById("adminGithubTokenInput");
+        if (tokenInp) tokenInp.value = token;
+      } else {
+        this.showToast("GitHub টোকেন ছাড়া সরাসরি লাইভ করা সম্ভব নয়। data.js ডাউনলোড করুন।", "warning");
+        this.downloadDataJs();
+        return;
+      }
+    }
+
+    const data = this.store.getData();
+    const repo = data.settings?.githubRepo || "rakibhosenroki-star/rakib";
+    const path = "assets/js/data.js";
+
+    const publishBtns = [
+      document.getElementById("adminPublishLiveBtn"),
+      document.getElementById("adminPublishLiveBtnSettings")
+    ].filter(Boolean);
+
+    publishBtns.forEach(btn => {
+      btn.disabled = true;
+      btn.dataset.originalHtml = btn.innerHTML;
+      btn.innerHTML = `<span>⏳</span> গিটহাবে লাইভ হচ্ছে...`;
+    });
+
+    this.showToast("গিটহাবের সাথে যুক্ত হয়ে লাইভ আপডেট পাঠানো হচ্ছে...", "info");
+
+    try {
+      // 1. Fetch current file SHA from GitHub
+      const fileRes = await fetch(`https://api.github.com/repos/${repo}/contents/${path}?ref=main`, {
+        headers: {
+          "Authorization": `Bearer ${token}`,
+          "Accept": "application/vnd.github.v3+json"
+        }
+      });
+
+      let currentSha = null;
+      if (fileRes.ok) {
+        const fileJson = await fileRes.json();
+        currentSha = fileJson.sha;
+      }
+
+      // 2. Prepare Base64 payload
+      const jsContent = this.generateDataJsContent();
+      const base64Content = btoa(unescape(encodeURIComponent(jsContent)));
+
+      const commitBody = {
+        message: "feat(admin): live portfolio update by Md Rakib Hasan [via admin panel]",
+        content: base64Content,
+        branch: "main"
+      };
+      if (currentSha) {
+        commitBody.sha = currentSha;
+      }
+
+      // 3. Commit and update on GitHub main branch
+      const putRes = await fetch(`https://api.github.com/repos/${repo}/contents/${path}`, {
+        method: "PUT",
+        headers: {
+          "Authorization": `Bearer ${token}`,
+          "Accept": "application/vnd.github.v3+json",
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(commitBody)
+      });
+
+      if (!putRes.ok) {
+        const errJson = await putRes.json().catch(() => ({}));
+        throw new Error(errJson.message || `GitHub HTTP ${putRes.status}`);
+      }
+
+      this.showToast("🎉 চমৎকার! আপনার পোর্টফলিও সরাসরি গিটহাবে লাইভ হয়ে গেছে!", "success");
+    } catch (err) {
+      console.error("Live publish to GitHub error:", err);
+      this.showToast("⚠️ সরাসরি গিটহাবে পুশ ব্যর্থ হয়েছে: " + err.message + "। data.js ফাইল ডাউনলোড হচ্ছে...", "error");
+      this.downloadDataJs();
+    } finally {
+      publishBtns.forEach(btn => {
+        btn.disabled = false;
+        if (btn.dataset.originalHtml) {
+          btn.innerHTML = btn.dataset.originalHtml;
+        }
+      });
     }
   }
 

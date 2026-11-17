@@ -16,70 +16,30 @@ const initialPortfolioState = {
     brandLogo: "RAKIB.",
     tagline: "Welcome to My Personal Portfolio",
     headline: "Web Developer & Creative Digital Creator",
-    summary: "A passionate and results-driven Web Developer and Creative Digital Creator dedicated to crafting high-performance, elegant, and user-centric digital experiences with modern web technologies.",
+    summary: "",
     avatar: "assets/images/profile.jpg",
-    statusBadge: "Available for Projects & Full-time Opportunities",
-    location: "Bangladesh (Available Worldwide)",
+    statusBadge: "Available for Projects",
+    location: "Bangladesh",
     email: "contact@rakibhasan.dev",
-    phone: "+880 1XXXXXXXXX",
-    experienceYears: "3+",
-    completedProjects: "15+",
-    happyClients: "100%"
+    phone: "",
+    experienceYears: "",
+    completedProjects: "",
+    happyClients: ""
   },
   about: {
-    introduction: "Hello! I am Md Rakib Hasan, a dedicated Web Developer and Creative Digital Creator with a deep enthusiasm for building cutting-edge, responsive, and aesthetically refined web applications. I focus on bridging the gap between innovative visual design and solid, clean engineering.",
-    interests: "Passionate about modern web technologies, glassmorphism UI/UX design, interactive frontend architectures, API development, database optimization, and exploring the latest developments in modern JavaScript frameworks and creative web animation.",
-    goals: "My primary goal is to continuously hone my craft as a full-stack engineer, deliver top-tier digital products that solve real-world problems for clients and businesses, and contribute meaningful open-source software to the developer community.",
-    journey: "My professional journey started with a fascination for how the internet works, which evolved into hands-on web development with HTML, CSS, and JavaScript. Over time, I progressed into modern frontend development with React, backend architecture with Node.js and Express, and structured data persistence with PostgreSQL.",
-    ambitions: "My future ambitions are centered around architecting scalable, enterprise-grade cloud systems, leading innovative web design projects, mastering cutting-edge fullstack ecosystems, and mentoring aspiring developers in the tech ecosystem."
+    introduction: "",
+    interests: "",
+    goals: "",
+    journey: "",
+    ambitions: ""
   },
   skills: [],
-  projects: [
-    {
-      id: 1,
-      title: "Md Rakib Hasan Portfolio Platform",
-      category: "Full Stack",
-      description: "A premium glassmorphic personal portfolio website featuring dark navy and purple gradient theme, dynamic dark/light mode toggle, contact message saving, and a secure functional Admin Dashboard.",
-      image: "https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&w=800&q=80",
-      technologies: ["React.js", "Tailwind CSS", "Node.js", "Express.js", "PostgreSQL"],
-      liveDemo: "#",
-      sourceCode: "https://github.com/rakibhosenroki-star/rakib"
-    },
-    {
-      id: 2,
-      title: "NovaStore - Modern E-Commerce Storefront",
-      category: "Full Stack",
-      description: "An elegant e-commerce web application featuring high-performance product listings, dynamic category filtering, shopping cart state management, and a PostgreSQL-backed product API.",
-      image: "https://images.unsplash.com/photo-1557821552-17105176677c?auto=format&fit=crop&w=800&q=80",
-      technologies: ["JavaScript (ES6+)", "Node.js", "Express.js", "PostgreSQL", "Tailwind CSS"],
-      liveDemo: "#",
-      sourceCode: "https://github.com/rakibhosenroki-star/rakib"
-    },
-    {
-      id: 3,
-      title: "FlowTask - Interactive Workflow & Task Manager",
-      category: "Frontend",
-      description: "A streamlined productivity web app designed for agile task tracking, featuring drag-and-drop kanban boards, priority tagging, and persistent local sync.",
-      image: "https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?auto=format&fit=crop&w=800&q=80",
-      technologies: ["HTML5", "CSS3", "JavaScript", "Local Storage", "Responsive UI"],
-      liveDemo: "#",
-      sourceCode: "https://github.com/rakibhosenroki-star/rakib"
-    },
-    {
-      id: 4,
-      title: "Lumina Studio - Creative Digital Agency Website",
-      category: "Creative",
-      description: "A showcase digital agency landing experience emphasizing glassmorphism UI, smooth scroll animations, interactive 3D card tilt effects, and an inquiry pipeline.",
-      image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80",
-      technologies: ["HTML5", "CSS3 Animations", "JavaScript", "Glassmorphism UI"],
-      liveDemo: "#",
-      sourceCode: "https://github.com/rakibhosenroki-star/rakib"
-    }
-  ],
+  projects: [],
+  services: [],
   socialLinks: [
     { platform: "GitHub", url: "https://github.com/rakibhosenroki-star", icon: "github" },
-    { platform: "LinkedIn", url: "https://linkedin.com/in/mdrakibhasan", icon: "linkedin" },
-    { platform: "Twitter", url: "https://twitter.com/mdrakibhasan", icon: "twitter" },
+    { platform: "LinkedIn", url: "https://linkedin.com/", icon: "linkedin" },
+    { platform: "Twitter", url: "https://twitter.com/", icon: "twitter" },
     { platform: "Email", url: "mailto:contact@rakibhasan.dev", icon: "mail" }
   ]
 };
@@ -87,17 +47,39 @@ const initialPortfolioState = {
 export default function App() {
   const [portfolioData, setPortfolioData] = useState(() => {
     const saved = localStorage.getItem('rakib_react_portfolio_state');
-    return saved ? JSON.parse(saved) : initialPortfolioState;
+    if (saved) {
+      try {
+        const parsed = JSON.parse(saved);
+        // Purge dummy demo projects and demo texts if present
+        if (parsed.projects && parsed.projects.some(p => p.title && (p.title.includes('NovaStore') || p.title.includes('FlowTask') || p.title.includes('Lumina Studio')))) {
+          parsed.projects = [];
+        }
+        if (parsed.about && parsed.about.introduction && parsed.about.introduction.includes("dedicated Web Developer and Creative Digital Creator with a deep enthusiasm")) {
+          parsed.about = { introduction: "", interests: "", goals: "", journey: "", ambitions: "" };
+        }
+        if (parsed.profile && parsed.profile.summary && parsed.profile.summary.includes("passionate and results-driven Web Developer")) {
+          parsed.profile.summary = "";
+        }
+        return parsed;
+      } catch (e) {
+        return initialPortfolioState;
+      }
+    }
+    return initialPortfolioState;
   });
 
   const [messages, setMessages] = useState(() => {
     const saved = localStorage.getItem('rakib_react_messages');
-    return saved ? JSON.parse(saved) : [
-      {
-        id: 1,
-        name: "Alex Morgan",
-        email: "alex.morgan@example.com",
-        subject: "Web Development Collaboration",
+    if (saved) {
+      try {
+        const parsed = JSON.parse(saved);
+        return parsed.filter(m => m.name !== "Alex Morgan");
+      } catch (e) {
+        return [];
+      }
+    }
+    return [];
+  });
         message: "Hi Md Rakib Hasan! I love your glassmorphism portfolio and would like to collaborate on an upcoming project."
       }
     ];
@@ -215,7 +197,7 @@ export default function App() {
         <About about={portfolioData.about} profile={portfolioData.profile} />
         <Skills skills={portfolioData.skills} />
         <Projects projects={portfolioData.projects} />
-        <Services />
+        <Services services={portfolioData.services} />
         <Contact profile={portfolioData.profile} />
       </main>
 

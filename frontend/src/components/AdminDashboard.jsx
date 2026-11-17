@@ -358,15 +358,15 @@ export default function AdminDashboard({ isOpen, onClose, data, onUpdateProfile,
                   <h4 className="text-base font-bold text-white mb-4">Dashboard Overview</h4>
                   <div className="grid grid-cols-3 gap-4 mb-6">
                     <div className="p-4 rounded-xl bg-white/5 border border-white/10 text-center">
-                      <div className="text-2xl font-bold text-purple-400">{data?.skills?.length || 7}</div>
+                      <div className="text-2xl font-bold text-purple-400">{data?.skills?.length ?? 0}</div>
                       <div className="text-[11px] text-slate-400 uppercase font-semibold">Active Skills</div>
                     </div>
                     <div className="p-4 rounded-xl bg-white/5 border border-white/10 text-center">
-                      <div className="text-2xl font-bold text-indigo-400">{data?.projects?.length || 4}</div>
+                      <div className="text-2xl font-bold text-indigo-400">{data?.projects?.length ?? 0}</div>
                       <div className="text-[11px] text-slate-400 uppercase font-semibold">Showcase Projects</div>
                     </div>
                     <div className="p-4 rounded-xl bg-white/5 border border-white/10 text-center">
-                      <div className="text-2xl font-bold text-pink-400">{messages?.length || 0}</div>
+                      <div className="text-2xl font-bold text-pink-400">{messages?.length ?? 0}</div>
                       <div className="text-[11px] text-slate-400 uppercase font-semibold">Contact Inquiries</div>
                     </div>
                   </div>

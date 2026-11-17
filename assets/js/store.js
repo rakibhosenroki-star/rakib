@@ -26,12 +26,40 @@ class PortfolioStore {
         if (Array.isArray(skills) && skills.some(s => s.id === "skill-1" || s.id === "skill-2")) {
           skills = [];
         }
+
+        // Filter out legacy dummy projects if present in cached localStorage
+        let projects = parsed.projects;
+        if (Array.isArray(projects) && projects.some(p => p.id === "proj-1" || p.id === "proj-2")) {
+          projects = [];
+        }
+
+        // Filter out legacy dummy services if present in cached localStorage
+        let services = parsed.services;
+        if (Array.isArray(services) && services.some(s => s.id === "serv-1" || s.id === "serv-2")) {
+          services = [];
+        }
+
+        // Filter out legacy demo messages
+        let messages = parsed.messages;
+        if (Array.isArray(messages) && messages.some(m => m.id === "msg-1")) {
+          messages = [];
+        }
+
+        // Filter out legacy demo about text if present
+        let about = { ...window.defaultPortfolioData.about, ...(parsed.about || {}) };
+        if (about.introduction && about.introduction.includes("dedicated Web Developer and Creative Digital Creator with a deep enthusiasm")) {
+          about = { introduction: "", interests: "", goals: "", journey: "", ambitions: "" };
+        }
+
         return {
           ...window.defaultPortfolioData,
           ...parsed,
           profile: mergedProfile,
           skills: skills || [],
-          about: { ...window.defaultPortfolioData.about, ...(parsed.about || {}) },
+          projects: projects || [],
+          services: services || [],
+          messages: messages || [],
+          about: about,
           settings: { ...window.defaultPortfolioData.settings, ...(parsed.settings || {}) }
         };
       }
@@ -165,6 +193,19 @@ class PortfolioStore {
     return this.data.services || [];
   }
 
+  addService(service) {
+    const newService = {
+      id: "serv-" + Date.now(),
+      features: [],
+      icon: "sparkles",
+      ...service
+    };
+    if (!this.data.services) this.data.services = [];
+    this.data.services.push(newService);
+    this.saveData();
+    return newService;
+  }
+
   updateService(id, updatedFields) {
     const index = this.data.services.findIndex(s => s.id === id);
     if (index !== -1) {
@@ -173,6 +214,12 @@ class PortfolioStore {
       return this.data.services[index];
     }
     return null;
+  }
+
+  deleteService(id) {
+    this.data.services = (this.data.services || []).filter(s => s.id !== id);
+    this.saveData();
+    return true;
   }
 
   // --- Social Links Operations ---

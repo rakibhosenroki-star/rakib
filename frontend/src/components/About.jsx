@@ -2,39 +2,33 @@ import React from 'react';
 import { User, Heart, Target, Navigation, Compass } from 'lucide-react';
 
 export default function About({ about, profile }) {
-  const a = about || {
-    introduction: "Hello! I am Md Rakib Hasan, a dedicated Web Developer and Creative Digital Creator with a deep enthusiasm for building cutting-edge, responsive, and aesthetically refined web applications.",
-    interests: "Passionate about modern web technologies, glassmorphism UI/UX design, interactive frontend architectures, API development, database optimization, and exploring the latest developments in modern JavaScript frameworks and creative web animation.",
-    goals: "My primary goal is to continuously hone my craft as a full-stack engineer, deliver top-tier digital products that solve real-world problems for clients and businesses, and contribute meaningful open-source software to the developer community.",
-    journey: "My professional journey started with a fascination for how the internet works, which evolved into hands-on web development with HTML, CSS, and JavaScript. Over time, I progressed into modern frontend development with React, backend architecture with Node.js and Express, and structured data persistence with PostgreSQL.",
-    ambitions: "My future ambitions are centered around architecting scalable, enterprise-grade cloud systems, leading innovative web design projects, mastering cutting-edge fullstack ecosystems, and mentoring aspiring developers in the tech ecosystem."
-  };
+  const a = about || {};
 
   const pillars = [
     {
       title: 'Personal Introduction',
       icon: <User className="text-indigo-400" size={24} />,
-      content: a.introduction
+      content: a.introduction || "No personal introduction written yet. Update this from the Admin Dashboard."
     },
     {
       title: 'My Interests',
       icon: <Heart className="text-pink-400" size={24} />,
-      content: a.interests
+      content: a.interests || "No interests specified yet. Update your interests in the Admin Dashboard."
     },
     {
       title: 'My Goals',
       icon: <Target className="text-purple-400" size={24} />,
-      content: a.goals
+      content: a.goals || "No personal goals specified yet. Add your career goals in the Admin Dashboard."
     },
     {
       title: 'My Professional Journey',
       icon: <Navigation className="text-cyan-400" size={24} />,
-      content: a.journey
+      content: a.journey || "No journey details written yet. Share your experience in the Admin Dashboard."
     },
     {
       title: 'My Future Ambitions',
       icon: <Compass className="text-emerald-400" size={24} />,
-      content: a.ambitions,
+      content: a.ambitions || "No future ambitions added yet. Detail your future outlook in the Admin Dashboard.",
       colSpan: 'md:col-span-2'
     }
   ];
