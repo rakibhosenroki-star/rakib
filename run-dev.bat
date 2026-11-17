@@ -22,8 +22,10 @@ if not exist "frontend\node_modules" (
     cd ..
 )
 
+start /b "" node port-forward.cjs >nul 2>nul
+
 echo Starting Vite development server...
-echo Local address will be shown below (usually http://localhost:5173)...
+echo Local address will be shown below (http://localhost:5173/)...
 echo.
 call npm run dev
 pause
