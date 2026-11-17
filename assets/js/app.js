@@ -125,11 +125,11 @@ class PortfolioApp {
     const heroIntro = document.getElementById("heroIntro");
     if (heroIntro) heroIntro.textContent = profile.summary || "";
 
-    // Avatar & Floating Badges
+    // Avatar & Floating Badges (100% Circle)
     const avatarImg = document.getElementById("heroAvatarImg");
-    if (avatarImg && profile.avatar) {
-      avatarImg.src = profile.avatar;
-      avatarImg.alt = profile.name;
+    if (avatarImg) {
+      avatarImg.src = profile.avatar || "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=80";
+      avatarImg.alt = profile.name || "Md Rakib Hasan";
     }
 
     // Social Links in Hero

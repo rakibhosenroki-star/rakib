@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { useTheme } from '../context/ThemeContext';
 import { X, Lock, LayoutDashboard, User, Image, BookOpen, Wrench, FolderGit2, Share2, Inbox, Settings, LogOut, Check, Trash2, Edit } from 'lucide-react';
@@ -15,13 +15,70 @@ export default function AdminDashboard({ isOpen, onClose, data, onUpdateProfile,
   // Editable Profile State
   const [profileForm, setProfileForm] = useState(() => ({
     name: data?.profile?.name || 'Md Rakib Hasan',
+    brandLogo: data?.profile?.brandLogo || 'RAKIB.',
     headline: data?.profile?.headline || 'Web Developer & Creative Digital Creator',
     tagline: data?.profile?.tagline || 'Welcome to My Personal Portfolio',
+    summary: data?.profile?.summary || '',
+    avatar: data?.profile?.avatar || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=80',
     statusBadge: data?.profile?.statusBadge || 'Available for Projects & Freelance',
     email: data?.profile?.email || 'contact@rakibhasan.dev',
     location: data?.profile?.location || 'Bangladesh (Available Worldwide)',
     phone: data?.profile?.phone || '+880 1XXXXXXXXX'
   }));
+
+  // Sync profileForm when data changes or modal opens
+  useEffect(() => {
+    if (data?.profile) {
+      setProfileForm({
+        name: data.profile.name || 'Md Rakib Hasan',
+        brandLogo: data.profile.brandLogo || 'RAKIB.',
+        headline: data.profile.headline || '',
+        tagline: data.profile.tagline || '',
+        summary: data.profile.summary || '',
+        avatar: data.profile.avatar || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=80',
+        statusBadge: data.profile.statusBadge || '',
+        email: data.profile.email || '',
+        location: data.profile.location || '',
+        phone: data.profile.phone || ''
+      });
+    }
+  }, [data?.profile, isOpen]);
+
+  // Compress and resize image to prevent memory / storage overflows
+  const compressImage = (file) => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onerror = () => reject(new Error("File read error"));
+      reader.onload = (e) => {
+        const img = new window.Image();
+        img.onerror = () => reject(new Error("Image format error"));
+        img.onload = () => {
+          let width = img.width;
+          let height = img.height;
+          const maxDim = 500;
+          if (width > height) {
+            if (width > maxDim) {
+              height = Math.round((height * maxDim) / width);
+              width = maxDim;
+            }
+          } else {
+            if (height > maxDim) {
+              width = Math.round((width * maxDim) / height);
+              height = maxDim;
+            }
+          }
+          const canvas = document.createElement("canvas");
+          canvas.width = width;
+          canvas.height = height;
+          const ctx = canvas.getContext("2d");
+          ctx.drawImage(img, 0, 0, width, height);
+          resolve(canvas.toDataURL("image/jpeg", 0.85));
+        };
+        img.src = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    });
+  };
 
   // Editable About State
   const [aboutForm, setAboutForm] = useState(() => ({
@@ -222,6 +279,16 @@ export default function AdminDashboard({ isOpen, onClose, data, onUpdateProfile,
               </button>
 
               <button
+                onClick={() => setActiveTab('avatar')}
+                className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-semibold transition-all ${
+                  activeTab === 'avatar' ? 'bg-purple-600 text-white' : 'text-slate-400 hover:text-white hover:bg-white/5'
+                }`}
+              >
+                <Image size={16} />
+                <span>Circular Avatar</span>
+              </button>
+
+              <button
                 onClick={() => setActiveTab('about')}
                 className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-semibold transition-all ${
                   activeTab === 'about' ? 'bg-purple-600 text-white' : 'text-slate-400 hover:text-white hover:bg-white/5'
@@ -329,11 +396,33 @@ export default function AdminDashboard({ isOpen, onClose, data, onUpdateProfile,
                       />
                     </div>
                     <div>
+                      <label className="block text-xs font-bold text-slate-300 mb-1">Brand Logo Text</label>
+                      <input
+                        type="text"
+                        value={profileForm.brandLogo}
+                        onChange={(e) => setProfileForm(p => ({ ...p, brandLogo: e.target.value }))}
+                        className="w-full px-3 py-2 rounded-xl bg-slate-950/60 border border-white/10 text-white text-xs"
+                        placeholder="RAKIB."
+                      />
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-3">
+                    <div>
                       <label className="block text-xs font-bold text-slate-300 mb-1">Headline</label>
                       <input
                         type="text"
                         value={profileForm.headline}
                         onChange={(e) => setProfileForm(p => ({ ...p, headline: e.target.value }))}
+                        className="w-full px-3 py-2 rounded-xl bg-slate-950/60 border border-white/10 text-white text-xs"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-xs font-bold text-slate-300 mb-1">Status Badge</label>
+                      <input
+                        type="text"
+                        value={profileForm.statusBadge}
+                        onChange={(e) => setProfileForm(p => ({ ...p, statusBadge: e.target.value }))}
                         className="w-full px-3 py-2 rounded-xl bg-slate-950/60 border border-white/10 text-white text-xs"
                       />
                     </div>
@@ -345,6 +434,16 @@ export default function AdminDashboard({ isOpen, onClose, data, onUpdateProfile,
                       type="text"
                       value={profileForm.tagline}
                       onChange={(e) => setProfileForm(p => ({ ...p, tagline: e.target.value }))}
+                      className="w-full px-3 py-2 rounded-xl bg-slate-950/60 border border-white/10 text-white text-xs"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-bold text-slate-300 mb-1">Hero Introduction Bio</label>
+                    <textarea
+                      rows="2"
+                      value={profileForm.summary}
+                      onChange={(e) => setProfileForm(p => ({ ...p, summary: e.target.value }))}
                       className="w-full px-3 py-2 rounded-xl bg-slate-950/60 border border-white/10 text-white text-xs"
                     />
                   </div>
@@ -377,6 +476,93 @@ export default function AdminDashboard({ isOpen, onClose, data, onUpdateProfile,
                     Save Changes
                   </button>
                 </form>
+              )}
+
+              {/* TAB: CIRCULAR AVATAR & PHOTO */}
+              {activeTab === 'avatar' && (
+                <div className="space-y-6 max-w-xl">
+                  <h4 className="text-base font-bold text-white mb-2">Circular Profile Picture Manager</h4>
+                  
+                  <div className="flex items-center gap-6 p-4 rounded-2xl bg-white/5 border border-white/10">
+                    <div className="w-28 h-28 rounded-full border-4 border-purple-500/60 overflow-hidden shrink-0 shadow-lg shadow-purple-500/20 aspect-square flex items-center justify-center">
+                      <img
+                        src={profileForm.avatar}
+                        alt={profileForm.name}
+                        className="w-full h-full object-cover rounded-full aspect-square"
+                      />
+                    </div>
+                    <div>
+                      <div className="text-sm font-bold text-white mb-1">100% Circular Avatar</div>
+                      <div className="text-xs text-slate-400">
+                        Rendered as a circle with vibrant glass glow on desktop and mobile.
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="space-y-4">
+                    <div>
+                      <label className="block text-xs font-bold text-slate-300 mb-1">Upload Photo File (JPG / PNG)</label>
+                      <input
+                        type="file"
+                        accept="image/*"
+                        onChange={async (e) => {
+                          const file = e.target.files[0];
+                          if (file) {
+                            try {
+                              showFeedback('Optimizing & resizing circular photo...');
+                              const compressed = await compressImage(file);
+                              setProfileForm(p => ({ ...p, avatar: compressed }));
+                              onUpdateProfile({ ...profileForm, avatar: compressed });
+                              showFeedback('Profile photo updated successfully!');
+                            } catch (err) {
+                              showFeedback('Error loading photo: ' + err.message);
+                            }
+                          }
+                        }}
+                        className="w-full px-3 py-2 rounded-xl bg-slate-950/60 border border-white/10 text-white text-xs"
+                      />
+                      <span className="text-[11px] text-slate-400 mt-1 block">
+                        Images are automatically compressed to circular format without exceeding storage limits.
+                      </span>
+                    </div>
+
+                    <div>
+                      <label className="block text-xs font-bold text-slate-300 mb-1">Or Direct Image Link / URL</label>
+                      <input
+                        type="url"
+                        value={profileForm.avatar.startsWith('data:') ? '' : profileForm.avatar}
+                        onChange={(e) => setProfileForm(p => ({ ...p, avatar: e.target.value }))}
+                        placeholder="https://example.com/photo.jpg"
+                        className="w-full px-3 py-2 rounded-xl bg-slate-950/60 border border-white/10 text-white text-xs"
+                      />
+                    </div>
+
+                    <div className="flex gap-3 pt-2">
+                      <button
+                        type="button"
+                        onClick={() => {
+                          onUpdateProfile(profileForm);
+                          showFeedback('Profile photo applied successfully!');
+                        }}
+                        className="px-5 py-2.5 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-bold text-xs shadow-lg transition-all"
+                      >
+                        Save &amp; Apply Photo
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          const def = "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=80";
+                          setProfileForm(p => ({ ...p, avatar: def }));
+                          onUpdateProfile({ ...profileForm, avatar: def });
+                          showFeedback('Reset to default photo');
+                        }}
+                        className="px-4 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-slate-300 font-semibold text-xs transition-all"
+                      >
+                        Reset Default
+                      </button>
+                    </div>
+                  </div>
+                </div>
               )}
 
               {/* TAB: ABOUT DETAILS */}

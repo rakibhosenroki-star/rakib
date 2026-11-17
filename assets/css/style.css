@@ -688,23 +688,30 @@ body {
 
 .avatar-frame {
   position: relative;
-  width: 310px;
-  height: 310px;
-  border-radius: 34px;
+  width: 320px;
+  height: 320px;
+  border-radius: 50% !important;
   padding: 8px;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.04));
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.25), rgba(255, 255, 255, 0.05));
   backdrop-filter: var(--glass-blur);
-  border: 1px solid var(--border-glass);
-  box-shadow: var(--shadow-glass), var(--shadow-glow-purple);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 2px solid rgba(139, 92, 246, 0.5);
+  box-shadow: 0 0 35px -5px rgba(139, 92, 246, 0.5), var(--shadow-glass);
   z-index: 1;
+  overflow: hidden;
+  aspect-ratio: 1 / 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .avatar-img {
   width: 100%;
   height: 100%;
-  border-radius: 28px;
+  border-radius: 50% !important;
   object-fit: cover;
   display: block;
+  aspect-ratio: 1 / 1;
 }
 
 /* Floating Glass Badges around Avatar */
@@ -1464,6 +1471,8 @@ textarea.form-control {
   .avatar-frame {
     width: 270px;
     height: 270px;
+    border-radius: 50% !important;
+    aspect-ratio: 1 / 1;
   }
   .admin-modal-body {
     flex-direction: column;

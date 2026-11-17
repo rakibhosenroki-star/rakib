@@ -99,14 +99,14 @@ export default function Hero({ profile, socialLinks }) {
           <div className="lg:col-span-5 flex justify-center relative">
             <div className="relative">
               {/* Glowing Aura Ring */}
-              <div className="absolute -inset-4 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-[2.5rem] blur-2xl opacity-40 animate-pulse" />
+              <div className="absolute -inset-4 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-full blur-2xl opacity-40 animate-pulse" />
 
-              {/* Avatar Glass Box */}
-              <div className="relative w-72 sm:w-80 h-72 sm:h-80 rounded-[2rem] p-2.5 bg-gradient-to-br from-white/20 to-white/5 border border-white/20 backdrop-blur-xl shadow-2xl">
+              {/* Avatar Glass Box (100% Circle) */}
+              <div className="relative w-72 sm:w-80 h-72 sm:h-80 rounded-full p-2.5 bg-gradient-to-br from-white/20 to-white/5 border border-purple-500/40 backdrop-blur-xl shadow-2xl overflow-hidden aspect-square flex items-center justify-center">
                 <img
                   src={p.avatar}
                   alt={p.name}
-                  className="w-full h-full object-cover rounded-[1.6rem]"
+                  className="w-full h-full object-cover rounded-full aspect-square"
                 />
               </div>
 

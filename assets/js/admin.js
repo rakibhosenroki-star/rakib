@@ -17,6 +17,41 @@ class AdminController {
     this.setupEventListeners();
   }
 
+  // Compress and resize image to prevent localStorage quota overflows
+  compressImage(file, maxWidth = 500, maxHeight = 500, quality = 0.85) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onerror = () => reject(new Error("Unable to read image file"));
+      reader.onload = (e) => {
+        const img = new Image();
+        img.onerror = () => reject(new Error("Invalid image format"));
+        img.onload = () => {
+          let width = img.width;
+          let height = img.height;
+          if (width > height) {
+            if (width > maxWidth) {
+              height = Math.round((height * maxWidth) / width);
+              width = maxWidth;
+            }
+          } else {
+            if (height > maxHeight) {
+              width = Math.round((width * maxHeight) / height);
+              height = maxHeight;
+            }
+          }
+          const canvas = document.createElement("canvas");
+          canvas.width = width;
+          canvas.height = height;
+          const ctx = canvas.getContext("2d");
+          ctx.drawImage(img, 0, 0, width, height);
+          resolve(canvas.toDataURL("image/jpeg", quality));
+        };
+        img.src = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    });
+  }
+
   setupEventListeners() {
     // Secret Keyboard Shortcut: Ctrl+Shift+A or Alt+A
     window.addEventListener("keydown", (e) => {
@@ -101,15 +136,23 @@ class AdminController {
       profileForm.addEventListener("submit", (e) => {
         e.preventDefault();
         const updated = {
-          name: document.getElementById("adminProfileName").value,
-          headline: document.getElementById("adminProfileHeadline").value,
-          tagline: document.getElementById("adminProfileTagline").value,
-          statusBadge: document.getElementById("adminProfileStatus").value,
-          email: document.getElementById("adminProfileEmail").value,
-          location: document.getElementById("adminProfileLocation").value,
-          phone: document.getElementById("adminProfilePhone").value
+          name: document.getElementById("adminProfileName").value.trim(),
+          headline: document.getElementById("adminProfileHeadline").value.trim(),
+          tagline: document.getElementById("adminProfileTagline").value.trim(),
+          statusBadge: document.getElementById("adminProfileStatus").value.trim(),
+          email: document.getElementById("adminProfileEmail").value.trim(),
+          location: document.getElementById("adminProfileLocation").value.trim(),
+          phone: document.getElementById("adminProfilePhone").value.trim()
         };
+        const logoInp = document.getElementById("adminProfileBrandLogo");
+        if (logoInp && logoInp.value.trim()) updated.brandLogo = logoInp.value.trim();
+        const summaryInp = document.getElementById("adminProfileSummary");
+        if (summaryInp) updated.summary = summaryInp.value.trim();
+
         this.store.updateProfile(updated);
+        if (window.portfolioApp) {
+          window.portfolioApp.render();
+        }
         this.showToast("Profile details updated successfully!", "success");
       });
     }
@@ -127,38 +170,79 @@ class AdminController {
           ambitions: document.getElementById("adminAboutAmbitions").value
         };
         this.store.updateAbout(updated);
+        if (window.portfolioApp) {
+          window.portfolioApp.render();
+        }
         this.showToast("About Me sections updated successfully!", "success");
       });
     }
 
-    // Avatar change handlers
+    // Circular Avatar & Photo change handlers
     const avatarUrlInput = document.getElementById("adminAvatarUrl");
     const avatarFileInput = document.getElementById("adminAvatarFile");
     const avatarPreview = document.getElementById("adminAvatarPreview");
+    const avatarForm = document.getElementById("adminAvatarForm");
+    const resetAvatarBtn = document.getElementById("resetAvatarBtn");
+
+    if (avatarFileInput) {
+      avatarFileInput.addEventListener("change", async (e) => {
+        const file = e.target.files[0];
+        if (file) {
+          try {
+            this.showToast("Optimizing & resizing circular photo...", "info");
+            const compressed = await this.compressImage(file);
+            if (avatarPreview) avatarPreview.src = compressed;
+            const heroImg = document.getElementById("heroAvatarImg");
+            if (heroImg) heroImg.src = compressed;
+            this.store.updateProfile({ avatar: compressed, avatarType: "base64" });
+            if (window.portfolioApp) window.portfolioApp.render();
+            this.showToast("Profile photo uploaded & saved successfully!", "success");
+          } catch (err) {
+            console.error("Avatar upload failed:", err);
+            this.showToast("Photo processing error: " + err.message, "error");
+          }
+        }
+      });
+    }
 
     if (avatarUrlInput) {
       avatarUrlInput.addEventListener("input", (e) => {
         const url = e.target.value.trim();
         if (url) {
-          avatarPreview.src = url;
-          this.store.updateProfile({ avatar: url, avatarType: "url" });
+          if (avatarPreview) avatarPreview.src = url;
+          const heroImg = document.getElementById("heroAvatarImg");
+          if (heroImg) heroImg.src = url;
         }
       });
     }
 
-    if (avatarFileInput) {
-      avatarFileInput.addEventListener("change", (e) => {
-        const file = e.target.files[0];
-        if (file) {
-          const reader = new FileReader();
-          reader.onload = (event) => {
-            const base64 = event.target.result;
-            avatarPreview.src = base64;
-            this.store.updateProfile({ avatar: base64, avatarType: "base64" });
-            this.showToast("Profile picture uploaded successfully!", "success");
-          };
-          reader.readAsDataURL(file);
+    if (avatarForm) {
+      avatarForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const url = avatarUrlInput ? avatarUrlInput.value.trim() : "";
+        if (url) {
+          this.store.updateProfile({ avatar: url, avatarType: "url" });
+          if (avatarPreview) avatarPreview.src = url;
+          const heroImg = document.getElementById("heroAvatarImg");
+          if (heroImg) heroImg.src = url;
+          if (window.portfolioApp) window.portfolioApp.render();
+          this.showToast("Profile picture link saved successfully!", "success");
+        } else {
+          this.showToast("Please choose an image file or enter an image URL.", "warning");
         }
+      });
+    }
+
+    if (resetAvatarBtn) {
+      resetAvatarBtn.addEventListener("click", () => {
+        const defAvatar = "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=80";
+        this.store.updateProfile({ avatar: defAvatar, avatarType: "url" });
+        if (avatarPreview) avatarPreview.src = defAvatar;
+        if (avatarUrlInput) avatarUrlInput.value = "";
+        const heroImg = document.getElementById("heroAvatarImg");
+        if (heroImg) heroImg.src = defAvatar;
+        if (window.portfolioApp) window.portfolioApp.render();
+        this.showToast("Profile picture reset to default.", "info");
       });
     }
 
@@ -398,8 +482,10 @@ class AdminController {
 
     // Profile form
     if (document.getElementById("adminProfileName")) document.getElementById("adminProfileName").value = p.name || "";
+    if (document.getElementById("adminProfileBrandLogo")) document.getElementById("adminProfileBrandLogo").value = p.brandLogo || "RAKIB.";
     if (document.getElementById("adminProfileHeadline")) document.getElementById("adminProfileHeadline").value = p.headline || "";
     if (document.getElementById("adminProfileTagline")) document.getElementById("adminProfileTagline").value = p.tagline || "";
+    if (document.getElementById("adminProfileSummary")) document.getElementById("adminProfileSummary").value = p.summary || "";
     if (document.getElementById("adminProfileStatus")) document.getElementById("adminProfileStatus").value = p.statusBadge || "";
     if (document.getElementById("adminProfileEmail")) document.getElementById("adminProfileEmail").value = p.email || "";
     if (document.getElementById("adminProfileLocation")) document.getElementById("adminProfileLocation").value = p.location || "";

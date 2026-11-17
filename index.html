@@ -577,8 +577,19 @@
                   <input type="text" id="adminProfileName" class="form-control" required>
                 </div>
                 <div class="form-group">
+                  <label class="form-label">Brand Logo Text</label>
+                  <input type="text" id="adminProfileBrandLogo" class="form-control" placeholder="RAKIB.">
+                </div>
+              </div>
+
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+                <div class="form-group">
                   <label class="form-label">Headline / Title</label>
                   <input type="text" id="adminProfileHeadline" class="form-control" required>
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Status Badge</label>
+                  <input type="text" id="adminProfileStatus" class="form-control" required>
                 </div>
               </div>
 
@@ -588,8 +599,8 @@
               </div>
 
               <div class="form-group">
-                <label class="form-label">Status Badge</label>
-                <input type="text" id="adminProfileStatus" class="form-control" required>
+                <label class="form-label">Hero Bio / Introduction Summary</label>
+                <textarea id="adminProfileSummary" class="form-control" rows="3" placeholder="Enter short bio shown in hero section"></textarea>
               </div>
 
               <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
@@ -608,30 +619,43 @@
                 <input type="text" id="adminProfilePhone" class="form-control">
               </div>
 
-              <button type="submit" class="btn btn-primary">Save Profile Changes</button>
+              <button type="submit" class="btn btn-primary" style="margin-top: 10px;">Save Profile Changes</button>
             </form>
           </div>
 
-          <!-- TAB 3: PROFILE PHOTO -->
+          <!-- TAB 3: CIRCULAR PROFILE PHOTO -->
           <div id="adminPanel_avatar" class="admin-panel">
-            <h3 style="font-size: 1.3rem; margin-bottom: 20px; color: var(--text-primary);">Profile Picture Manager</h3>
-            <div style="display: flex; gap: 30px; align-items: flex-start; flex-wrap: wrap;">
+            <h3 style="font-size: 1.3rem; margin-bottom: 20px; color: var(--text-primary);">Circular Profile Photo Manager</h3>
+            <div style="display: flex; gap: 32px; align-items: flex-start; flex-wrap: wrap;">
               <div style="text-align: center;">
-                <img id="adminAvatarPreview" src="" alt="Preview" style="width: 180px; height: 180px; border-radius: 24px; object-fit: cover; border: 2px solid var(--accent-purple); box-shadow: var(--shadow-glow-purple);" />
-                <span style="display: block; margin-top: 8px; font-size: 0.8rem; color: var(--text-muted);">Current Photo</span>
+                <div style="position: relative; width: 180px; height: 180px; margin: 0 auto;">
+                  <img id="adminAvatarPreview" src="" alt="Circular Avatar Preview" style="width: 180px; height: 180px; border-radius: 50% !important; object-fit: cover; border: 3px solid var(--accent-purple); box-shadow: var(--shadow-glow-purple); aspect-ratio: 1/1;" />
+                </div>
+                <span style="display: block; margin-top: 10px; font-size: 0.85rem; font-weight: 600; color: var(--text-secondary);">100% Circular Avatar</span>
               </div>
 
               <div style="flex: 1; min-width: 280px;">
-                <div class="form-group">
-                  <label class="form-label">Upload New Photo File (JPG / PNG)</label>
-                  <input type="file" id="adminAvatarFile" class="form-control" accept="image/*">
-                  <span style="font-size: 0.78rem; color: var(--text-muted); display: block; margin-top: 4px;">Photo will be converted into instant data URL and saved.</span>
-                </div>
+                <form id="adminAvatarForm">
+                  <div class="form-group">
+                    <label class="form-label">Upload New Photo File (JPG / PNG)</label>
+                    <input type="file" id="adminAvatarFile" class="form-control" accept="image/*">
+                    <span style="font-size: 0.78rem; color: var(--text-muted); display: block; margin-top: 4px;">Photo is automatically resized &amp; optimized to save instantly into local storage.</span>
+                  </div>
 
-                <div class="form-group">
-                  <label class="form-label">Or Enter Direct Image URL</label>
-                  <input type="url" id="adminAvatarUrl" class="form-control" placeholder="https://example.com/photo.jpg">
-                </div>
+                  <div class="form-group">
+                    <label class="form-label">Or Direct Image URL</label>
+                    <input type="url" id="adminAvatarUrl" class="form-control" placeholder="https://example.com/photo.jpg">
+                  </div>
+
+                  <div style="display: flex; gap: 12px; margin-top: 20px;">
+                    <button type="submit" id="saveAvatarBtn" class="btn btn-primary">
+                      Save &amp; Apply Photo
+                    </button>
+                    <button type="button" id="resetAvatarBtn" class="btn btn-glass">
+                      Reset Default Photo
+                    </button>
+                  </div>
+                </form>
               </div>
             </div>
           </div>

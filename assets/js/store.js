@@ -17,11 +17,14 @@ class PortfolioStore {
       const stored = localStorage.getItem(STORAGE_KEY);
       if (stored) {
         const parsed = JSON.parse(stored);
-        // Deep merge with defaultPortfolioData in case new keys exist
+        const mergedProfile = { ...window.defaultPortfolioData.profile, ...(parsed.profile || {}) };
+        if (!mergedProfile.avatar || mergedProfile.avatar.trim() === "") {
+          mergedProfile.avatar = window.defaultPortfolioData.profile.avatar;
+        }
         return {
           ...window.defaultPortfolioData,
           ...parsed,
-          profile: { ...window.defaultPortfolioData.profile, ...(parsed.profile || {}) },
+          profile: mergedProfile,
           about: { ...window.defaultPortfolioData.about, ...(parsed.about || {}) },
           settings: { ...window.defaultPortfolioData.settings, ...(parsed.settings || {}) }
         };
@@ -33,12 +36,19 @@ class PortfolioStore {
   }
 
   saveData() {
+    let success = false;
     try {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(this.data));
-      this.notifyListeners();
+      success = true;
     } catch (e) {
       console.error("Failed to save data to localStorage:", e);
+      if (e.name === "QuotaExceededError" || e.code === 22) {
+        console.warn("localStorage quota exceeded! Attempting memory state preservation.");
+      }
     }
+    // ALWAYS notify listeners so UI updates immediately in real-time
+    this.notifyListeners();
+    return success;
   }
 
   subscribe(listener) {
