@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Md Rakib Hasan – Personal Portfolio | Web Developer & Creative Digital Creator</title>
+  <meta name="description" content="Personal portfolio website of Md Rakib Hasan. Showcasing modern web development skills, responsive glassmorphism design, full-stack projects, and creative digital solutions.">
+  <meta name="author" content="Md Rakib Hasan">
+  <meta name="keywords" content="Md Rakib Hasan, Rakib Hasan, Web Developer, Portfolio, React, Node.js, PostgreSQL, Glassmorphism, Frontend, Backend">
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90' font-weight='900' fill='%238b5cf6'>R</text></svg>">
+  
+  <!-- Google Fonts: Plus Jakarta Sans & Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  
+  <!-- Portfolio Stylesheet -->
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+  <!-- Background Ambient Glowing Orbs & Tech Grid Overlay -->
+  <div class="ambient-glow-wrapper">
+    <div class="tech-grid-overlay"></div>
+    <div class="ambient-orb ambient-orb-1"></div>
+    <div class="ambient-orb ambient-orb-2"></div>
+    <div class="ambient-orb ambient-orb-3"></div>
+  </div>
+
+  <!-- Navigation Bar -->
+  <header class="site-header">
+    <nav class="navbar">
+      <a href="#home" class="brand-logo" id="brandLogo">
+        RAKIB<span>.</span>
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="#home" class="nav-link active">Home</a></li>
+        <li><a href="#about" class="nav-link">About</a></li>
+        <li><a href="#skills" class="nav-link">Skills</a></li>
+        <li><a href="#projects" class="nav-link">Projects</a></li>
+        <li><a href="#services" class="nav-link">Services</a></li>
+        <li><a href="#contact" class="nav-link">Contact</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <!-- Theme Toggle Button (Dark Navy / Light Mode) -->
+        <button id="themeToggleBtn" class="theme-toggle-btn" aria-label="Toggle Theme">
+          <!-- Injected via app.js -->
+        </button>
+
+        <!-- Admin Dashboard Access Button -->
+        <button id="openAdminBtn" class="btn btn-glass btn-sm" title="Manage Portfolio (Admin)">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+          <span>Admin</span>
+        </button>
+
+        <!-- Mobile Hamburger Toggle -->
+        <button id="hamburgerBtn" class="hamburger-btn" aria-label="Open Navigation">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Mobile Drawer Menu -->
+  <div id="mobileNavBackdrop" class="mobile-nav-backdrop"></div>
+  <aside id="mobileNav" class="mobile-nav">
+    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 30px;">
+      <a href="#home" class="brand-logo" style="font-size: 1.5rem;">RAKIB<span>.</span></a>
+      <button id="closeMobileNav" class="btn btn-glass btn-icon" aria-label="Close Navigation">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+      </button>
+    </div>
+
+    <ul style="list-style: none; display: flex; flex-direction: column; gap: 18px;">
+      <li><a href="#home" class="mobile-nav-link nav-link">Home</a></li>
+      <li><a href="#about" class="mobile-nav-link nav-link">About Me</a></li>
+      <li><a href="#skills" class="mobile-nav-link nav-link">My Skills</a></li>
+      <li><a href="#projects" class="mobile-nav-link nav-link">My Projects</a></li>
+      <li><a href="#services" class="mobile-nav-link nav-link">My Services</a></li>
+      <li><a href="#contact" class="mobile-nav-link nav-link">Contact Me</a></li>
+    </ul>
+
+    <div style="display: flex; flex-direction: column; gap: 12px; margin-top: auto; padding-top: 24px; border-top: 1px solid var(--border-glass);">
+      <button id="openAdminBtnMobile" class="btn btn-primary" style="width: 100%;">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+        Admin Dashboard
+      </button>
+    </div>
+  </aside>
+
+  <!-- Main Content -->
+  <main>
+
+    <!-- 1. HERO SECTION -->
+    <section id="home" class="hero-section">
+      <div class="container">
+        <div class="hero-grid">
+          
+          <!-- Hero Text Details -->
+          <div class="hero-content">
+            <div id="heroWelcomeBadge" class="hero-welcome-badge">
+              <span class="pulse-dot"></span> Welcome to My Personal Portfolio
+            </div>
+
+            <h1 id="heroName" class="hero-name">
+              <span class="gradient-text">MD RAKIB HASAN</span>
+            </h1>
+
+            <h2 id="heroHeadline" class="hero-headline">
+              Web Developer & Creative Digital Creator
+            </h2>
+
+            <p id="heroIntro" class="hero-intro">
+              A passionate and results-driven Web Developer and Creative Digital Creator dedicated to crafting high-performance, elegant, and user-centric digital experiences with modern web technologies.
+            </p>
+
+            <div class="hero-buttons">
+              <a href="#projects" class="btn btn-primary">
+                <span>Explore My Work</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+              </a>
+
+              <a href="#contact" class="btn btn-glass">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"></rect><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path></svg>
+                <span>Contact Me</span>
+              </a>
+            </div>
+
+            <!-- Social Media Icons -->
+            <div class="hero-socials-wrapper">
+              <span style="font-size: 0.85rem; font-weight: 600; text-transform: uppercase; color: var(--text-muted); display: block; margin-bottom: 10px;">Connect With Me</span>
+              <div id="heroSocials" class="hero-socials">
+                <!-- Injected via app.js -->
+              </div>
+            </div>
+          </div>
+
+          <!-- Hero Avatar & Badges -->
+          <div class="hero-avatar-wrapper">
+            <div class="avatar-backdrop-glow"></div>
+            
+            <div class="avatar-frame">
+              <img id="heroAvatarImg" class="avatar-img" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=80" alt="Md Rakib Hasan" />
+            </div>
+
+            <!-- Floating Glass Badges -->
+            <div class="floating-badge floating-badge-1">
+              <div class="floating-badge-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+              </div>
+              <div class="floating-badge-text">
+                <span class="floating-badge-title">Responsiveness</span>
+                <span class="floating-badge-value">100% Mobile Ready</span>
+              </div>
+            </div>
+
+            <div class="floating-badge floating-badge-2">
+              <div class="floating-badge-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+              </div>
+              <div class="floating-badge-text">
+                <span class="floating-badge-title">Code Quality</span>
+                <span class="floating-badge-value">Clean & Modern</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. ABOUT ME SECTION -->
+    <section id="about" class="section">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">About Me</span>
+          <h2 class="section-title">Introducing <span class="gradient-text">Md Rakib Hasan</span></h2>
+          <p class="section-subtitle">
+            Get to know my story, passions, philosophy, and where I am headed in the digital landscape.
+          </p>
+        </div>
+
+        <div class="about-grid">
+          <!-- 5 Pillars requested by user -->
+          <div class="about-pillars-grid">
+            
+            <!-- Pillar 1: Personal Introduction -->
+            <div class="glass-card about-pillar-card">
+              <div class="about-pillar-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+              </div>
+              <h3 class="about-pillar-title">Personal Introduction</h3>
+              <p id="aboutIntroduction" class="about-pillar-desc">
+                Hello! I am Md Rakib Hasan, a dedicated Web Developer and Creative Digital Creator with a deep enthusiasm for building cutting-edge, responsive, and aesthetically refined web applications. I focus on bridging the gap between innovative visual design and solid, clean engineering.
+              </p>
+            </div>
+
+            <!-- Pillar 2: My Interests -->
+            <div class="glass-card about-pillar-card">
+              <div class="about-pillar-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+              </div>
+              <h3 class="about-pillar-title">My Interests</h3>
+              <p id="aboutInterests" class="about-pillar-desc">
+                Passionate about modern web technologies, glassmorphism UI/UX design, interactive frontend architectures, API development, database optimization, and exploring the latest developments in modern JavaScript frameworks and creative web animation.
+              </p>
+            </div>
+
+            <!-- Pillar 3: My Goals -->
+            <div class="glass-card about-pillar-card">
+              <div class="about-pillar-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 14 14"></polyline></svg>
+              </div>
+              <h3 class="about-pillar-title">My Goals</h3>
+              <p id="aboutGoals" class="about-pillar-desc">
+                My primary goal is to continuously hone my craft as a full-stack engineer, deliver top-tier digital products that solve real-world problems for clients and businesses, and contribute meaningful open-source software to the developer community.
+              </p>
+            </div>
+
+            <!-- Pillar 4: My Professional Journey -->
+            <div class="glass-card about-pillar-card">
+              <div class="about-pillar-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="6" y1="3" x2="6" y2="15"></line><circle cx="18" cy="6" r="3"></circle><circle cx="6" cy="18" r="3"></circle><path d="M18 9a9 9 0 0 1-9 9"></path></svg>
+              </div>
+              <h3 class="about-pillar-title">My Professional Journey</h3>
+              <p id="aboutJourney" class="about-pillar-desc">
+                My professional journey started with a fascination for how the internet works, which evolved into hands-on web development with HTML, CSS, and JavaScript. Over time, I progressed into modern frontend development with React, backend architecture with Node.js and Express, and structured data persistence with PostgreSQL.
+              </p>
+            </div>
+
+            <!-- Pillar 5: My Future Ambitions -->
+            <div class="glass-card about-pillar-card" style="grid-column: 1 / -1;">
+              <div class="about-pillar-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+              </div>
+              <h3 class="about-pillar-title">My Future Ambitions</h3>
+              <p id="aboutAmbitions" class="about-pillar-desc">
+                My future ambitions are centered around architecting scalable, enterprise-grade cloud systems, leading innovative web design projects, mastering cutting-edge fullstack ecosystems, and mentoring aspiring developers in the tech ecosystem.
+              </p>
+            </div>
+
+          </div>
+
+          <!-- Quick Stats Row -->
+          <div class="about-stats-row">
+            <div class="glass-card stat-card">
+              <div id="statExpYears" class="stat-number">3+</div>
+              <div class="stat-label">Years Continuous Practice</div>
+            </div>
+            <div class="glass-card stat-card">
+              <div id="statCompletedProjects" class="stat-number">15+</div>
+              <div class="stat-label">Projects & Solutions Built</div>
+            </div>
+            <div class="glass-card stat-card">
+              <div id="statHappyClients" class="stat-number">100%</div>
+              <div class="stat-label">Dedication to Quality</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. MY SKILLS SECTION -->
+    <section id="skills" class="section" style="background: rgba(0, 0, 0, 0.1);">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">My Expertise</span>
+          <h2 class="section-title">Core Skills & <span class="gradient-text">Technologies</span></h2>
+          <p class="section-subtitle">
+            A transparent overview of my technical capabilities and proficiency levels. Fully editable via the Admin Dashboard.
+          </p>
+        </div>
+
+        <div id="skillsGridContainer" class="skills-grid">
+          <!-- Injected dynamically via app.js -->
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. MY PROJECTS SECTION -->
+    <section id="projects" class="section">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">Featured Works</span>
+          <h2 class="section-title">Selected <span class="gradient-text">Projects</span></h2>
+          <p class="section-subtitle">
+            Explore a curated selection of web applications, interfaces, and digital solutions I have designed and developed.
+          </p>
+        </div>
+
+        <!-- Filter Bar -->
+        <div id="projectsFilterContainer" class="projects-filter-bar">
+          <!-- Injected via app.js -->
+        </div>
+
+        <!-- Projects Grid -->
+        <div id="projectsGridContainer" class="projects-grid">
+          <!-- Injected dynamically via app.js -->
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. MY SERVICES SECTION -->
+    <section id="services" class="section" style="background: rgba(0, 0, 0, 0.1);">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">What I Offer</span>
+          <h2 class="section-title">Professional <span class="gradient-text">Services</span></h2>
+          <p class="section-subtitle">
+            Comprehensive digital services crafted to bring your web vision to reality with high standards and meticulous care.
+          </p>
+        </div>
+
+        <div id="servicesGridContainer" class="services-grid">
+          <!-- Injected dynamically via app.js -->
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. CONTACT ME SECTION -->
+    <section id="contact" class="section">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">Get In Touch</span>
+          <h2 class="section-title">Let's Connect & <span class="gradient-text">Collaborate</span></h2>
+          <p class="section-subtitle">
+            Have a project in mind, an inquiry, or simply want to say hello? Send me a message and I'll get back to you promptly.
+          </p>
+        </div>
+
+        <div class="contact-grid">
+          <!-- Direct Contact Cards -->
+          <div class="contact-info-cards">
+            
+            <div class="glass-card contact-info-card">
+              <div class="contact-info-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"></rect><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path></svg>
+              </div>
+              <div>
+                <div class="contact-info-label">Direct Email</div>
+                <a id="contactInfoEmail" href="mailto:contact@rakibhasan.dev" class="contact-info-value">contact@rakibhasan.dev</a>
+              </div>
+            </div>
+
+            <div class="glass-card contact-info-card">
+              <div class="contact-info-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+              </div>
+              <div>
+                <div class="contact-info-label">Location</div>
+                <div id="contactInfoLocation" class="contact-info-value">Bangladesh (Available Worldwide)</div>
+              </div>
+            </div>
+
+            <div class="glass-card contact-info-card">
+              <div class="contact-info-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 14 14"></polyline></svg>
+              </div>
+              <div>
+                <div class="contact-info-label">Current Availability</div>
+                <div id="contactInfoStatus" class="contact-info-value" style="color: #10b981;">Available for Projects & Freelance</div>
+              </div>
+            </div>
+
+            <div class="glass-card" style="padding: 24px; border-radius: 18px;">
+              <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 8px; color: var(--text-primary);">Database Message Storage</h4>
+              <p style="font-size: 0.88rem; color: var(--text-secondary); line-height: 1.5;">
+                Every message submitted through this form is recorded directly into the portfolio database and accessible securely through the Admin Dashboard.
+              </p>
+            </div>
+
+          </div>
+
+          <!-- Contact Form -->
+          <div class="glass-card contact-form-card">
+            <form id="contactForm">
+              <div class="form-group">
+                <label for="contactName" class="form-label">Full Name *</label>
+                <input type="text" id="contactName" class="form-control" placeholder="Enter your full name" required>
+              </div>
+
+              <div class="form-group">
+                <label for="contactEmail" class="form-label">Email Address *</label>
+                <input type="email" id="contactEmail" class="form-control" placeholder="name@example.com" required>
+              </div>
+
+              <div class="form-group">
+                <label for="contactSubject" class="form-label">Subject</label>
+                <input type="text" id="contactSubject" class="form-control" placeholder="What would you like to discuss?">
+              </div>
+
+              <div class="form-group">
+                <label for="contactMessage" class="form-label">Message *</label>
+                <textarea id="contactMessage" class="form-control" placeholder="Write your message here..." required></textarea>
+              </div>
+
+              <button type="submit" class="btn btn-primary" style="width: 100%; padding: 14px;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+                <span>Send Message</span>
+              </button>
+            </form>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Site Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <a href="#home" class="brand-logo" style="margin-bottom: 8px;">RAKIB<span>.</span></a>
+          <p>
+            Official personal portfolio of <strong id="footerName" class="brand-name-text">Md Rakib Hasan</strong>. Crafted with modern glassmorphism design, responsive layouts, and full-stack architecture.
+          </p>
+        </div>
+
+        <div>
+          <span style="font-size: 0.85rem; font-weight: 600; text-transform: uppercase; color: var(--text-muted); display: block; margin-bottom: 12px;">Social Profiles</span>
+          <div id="footerSocials" class="hero-socials">
+            <!-- Injected via app.js -->
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>
+          &copy; <span id="footerYear"></span> <strong class="brand-name-text">Md Rakib Hasan</strong>. All rights reserved.
+        </div>
+        <div>
+          Built with React &amp; Modern Glassmorphism
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ==========================================================================
+       ADMIN DASHBOARD MODAL
+       ========================================================================== -->
+  <div id="adminModal" class="admin-modal-overlay">
+    <div class="admin-modal">
+      
+      <!-- Modal Header -->
+      <div class="admin-modal-header">
+        <div style="display: flex; align-items: center; gap: 12px;">
+          <div style="width: 38px; height: 38px; border-radius: 10px; background: var(--gradient-brand); display: flex; align-items: center; justify-content: center; color: white;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+          </div>
+          <div>
+            <h3 style="font-size: 1.25rem; font-weight: 700; color: var(--text-primary); margin: 0;">Portfolio Admin Dashboard</h3>
+            <span style="font-size: 0.78rem; color: var(--text-muted);">Manage profile, skills, projects, and contact messages</span>
+          </div>
+        </div>
+
+        <button id="closeAdminBtn" class="btn btn-glass btn-icon" aria-label="Close Admin Modal">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </button>
+      </div>
+
+      <!-- Auth Gate (Shown when not authenticated) -->
+      <div id="adminAuthGate" style="padding: 60px 30px; text-align: center; max-width: 440px; margin: 0 auto;">
+        <div style="width: 60px; height: 60px; border-radius: 50%; background: rgba(139, 92, 246, 0.15); display: flex; align-items: center; justify-content: center; margin: 0 auto 20px auto; color: var(--accent-purple);">
+          <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+        </div>
+        <h3 style="font-size: 1.4rem; font-weight: 700; margin-bottom: 8px; color: var(--text-primary);">Secure Admin Login</h3>
+        <p style="font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 24px;">
+          Please enter your credentials to access the portfolio management dashboard.
+        </p>
+
+        <form id="adminLoginForm">
+          <div class="form-group" style="text-align: left;">
+            <label class="form-label">Username</label>
+            <input type="text" id="adminUsernameInput" class="form-control" value="admin" required>
+          </div>
+          <div class="form-group" style="text-align: left;">
+            <label class="form-label">Password</label>
+            <input type="password" id="adminPasswordInput" class="form-control" value="rakib2026" required>
+          </div>
+          <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 10px;">
+            Log In as Admin
+          </button>
+        </form>
+
+        <div style="margin-top: 20px; font-size: 0.82rem; color: var(--text-muted); background: rgba(255, 255, 255, 0.04); padding: 10px; border-radius: 8px;">
+          Default Login: <strong>admin</strong> | Password: <strong>rakib2026</strong>
+        </div>
+      </div>
+
+      <!-- Authenticated Dashboard Content -->
+      <div id="adminDashboardContent" class="admin-modal-body" style="display: none;">
+        
+        <!-- Sidebar Navigation -->
+        <aside class="admin-sidebar">
+          <button class="admin-tab-btn active" data-tab="overview">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+            <span>Overview</span>
+          </button>
+
+          <button class="admin-tab-btn" data-tab="profile">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+            <span>Profile &amp; Bio</span>
+          </button>
+
+          <button class="admin-tab-btn" data-tab="avatar">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
+            <span>Profile Photo</span>
+          </button>
+
+          <button class="admin-tab-btn" data-tab="about">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+            <span>About Details</span>
+          </button>
+
+          <button class="admin-tab-btn" data-tab="skills">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+            <span>Manage Skills</span>
+          </button>
+
+          <button class="admin-tab-btn" data-tab="projects">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>
+            <span>Manage Projects</span>
+          </button>
+
+          <button class="admin-tab-btn" data-tab="socials">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>
+            <span>Social Media</span>
+          </button>
+
+          <button class="admin-tab-btn" data-tab="messages">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+            <span>Messages Inbox</span>
+          </button>
+
+          <button class="admin-tab-btn" data-tab="settings">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+            <span>Settings &amp; Backup</span>
+          </button>
+
+          <div style="margin-top: auto; padding-top: 14px; border-top: 1px solid var(--border-glass);">
+            <button id="adminLogoutBtn" class="btn btn-glass btn-sm" style="width: 100%;">
+              Log Out
+            </button>
+          </div>
+        </aside>
+
+        <!-- Main Content Panel Area -->
+        <div class="admin-content-area">
+          
+          <!-- TAB 1: OVERVIEW -->
+          <div id="adminPanel_overview" class="admin-panel active">
+            <h3 style="font-size: 1.3rem; margin-bottom: 20px; color: var(--text-primary);">Dashboard Overview</h3>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; margin-bottom: 28px;">
+              <div class="glass-card" style="padding: 20px; text-align: center;">
+                <div id="statCountSkills" style="font-size: 2rem; font-weight: 800; color: var(--accent-purple);">7</div>
+                <div style="font-size: 0.8rem; text-transform: uppercase; color: var(--text-muted);">Active Skills</div>
+              </div>
+              <div class="glass-card" style="padding: 20px; text-align: center;">
+                <div id="statCountProjects" style="font-size: 2rem; font-weight: 800; color: var(--accent-indigo);">4</div>
+                <div style="font-size: 0.8rem; text-transform: uppercase; color: var(--text-muted);">Projects Showcased</div>
+              </div>
+              <div class="glass-card" style="padding: 20px; text-align: center;">
+                <div id="statCountMessages" style="font-size: 2rem; font-weight: 800; color: var(--accent-pink);">1</div>
+                <div style="font-size: 0.8rem; text-transform: uppercase; color: var(--text-muted);">Total Messages</div>
+              </div>
+              <div class="glass-card" style="padding: 20px; text-align: center;">
+                <div id="statCountUnread" style="font-size: 2rem; font-weight: 800; color: #10b981;">1</div>
+                <div style="font-size: 0.8rem; text-transform: uppercase; color: var(--text-muted);">Unread Inquiries</div>
+              </div>
+            </div>
+
+            <div class="glass-card" style="padding: 24px;">
+              <h4 style="margin-bottom: 10px; color: var(--text-primary);">Live Portfolio Management</h4>
+              <p style="color: var(--text-secondary); font-size: 0.92rem; line-height: 1.6;">
+                Welcome, <strong>Md Rakib Hasan</strong>! From this dashboard, any change you make to your profile, biography, skills, projects, or settings updates immediately on your website and persists in your local storage as well as your PostgreSQL database.
+              </p>
+            </div>
+          </div>
+
+          <!-- TAB 2: PROFILE & BIO -->
+          <div id="adminPanel_profile" class="admin-panel">
+            <h3 style="font-size: 1.3rem; margin-bottom: 20px; color: var(--text-primary);">Edit Profile &amp; Bio Information</h3>
+            <form id="adminProfileForm">
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+                <div class="form-group">
+                  <label class="form-label">Full Name</label>
+                  <input type="text" id="adminProfileName" class="form-control" required>
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Headline / Title</label>
+                  <input type="text" id="adminProfileHeadline" class="form-control" required>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Tagline (Welcome Badge)</label>
+                <input type="text" id="adminProfileTagline" class="form-control" required>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Status Badge</label>
+                <input type="text" id="adminProfileStatus" class="form-control" required>
+              </div>
+
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+                <div class="form-group">
+                  <label class="form-label">Email Address</label>
+                  <input type="email" id="adminProfileEmail" class="form-control" required>
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Location</label>
+                  <input type="text" id="adminProfileLocation" class="form-control" required>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Phone (Optional / Placeholder)</label>
+                <input type="text" id="adminProfilePhone" class="form-control">
+              </div>
+
+              <button type="submit" class="btn btn-primary">Save Profile Changes</button>
+            </form>
+          </div>
+
+          <!-- TAB 3: PROFILE PHOTO -->
+          <div id="adminPanel_avatar" class="admin-panel">
+            <h3 style="font-size: 1.3rem; margin-bottom: 20px; color: var(--text-primary);">Profile Picture Manager</h3>
+            <div style="display: flex; gap: 30px; align-items: flex-start; flex-wrap: wrap;">
+              <div style="text-align: center;">
+                <img id="adminAvatarPreview" src="" alt="Preview" style="width: 180px; height: 180px; border-radius: 24px; object-fit: cover; border: 2px solid var(--accent-purple); box-shadow: var(--shadow-glow-purple);" />
+                <span style="display: block; margin-top: 8px; font-size: 0.8rem; color: var(--text-muted);">Current Photo</span>
+              </div>
+
+              <div style="flex: 1; min-width: 280px;">
+                <div class="form-group">
+                  <label class="form-label">Upload New Photo File (JPG / PNG)</label>
+                  <input type="file" id="adminAvatarFile" class="form-control" accept="image/*">
+                  <span style="font-size: 0.78rem; color: var(--text-muted); display: block; margin-top: 4px;">Photo will be converted into instant data URL and saved.</span>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label">Or Enter Direct Image URL</label>
+                  <input type="url" id="adminAvatarUrl" class="form-control" placeholder="https://example.com/photo.jpg">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- TAB 4: ABOUT DETAILS (5 Specific User Pillars) -->
+          <div id="adminPanel_about" class="admin-panel">
+            <h3 style="font-size: 1.3rem; margin-bottom: 20px; color: var(--text-primary);">Edit About Me Pillars</h3>
+            <form id="adminAboutForm">
+              <div class="form-group">
+                <label class="form-label">1. Personal Introduction</label>
+                <textarea id="adminAboutIntro" class="form-control" rows="3" required></textarea>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">2. My Interests</label>
+                <textarea id="adminAboutInterests" class="form-control" rows="3" required></textarea>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">3. My Goals</label>
+                <textarea id="adminAboutGoals" class="form-control" rows="3" required></textarea>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">4. My Professional Journey</label>
+                <textarea id="adminAboutJourney" class="form-control" rows="3" required></textarea>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">5. My Future Ambitions</label>
+                <textarea id="adminAboutAmbitions" class="form-control" rows="3" required></textarea>
+              </div>
+
+              <button type="submit" class="btn btn-primary">Update About Me Content</button>
+            </form>
+          </div>
+
+          <!-- TAB 5: MANAGE SKILLS -->
+          <div id="adminPanel_skills" class="admin-panel">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+              <h3 style="font-size: 1.3rem; color: var(--text-primary); margin: 0;">Manage Skills</h3>
+              <button id="addNewSkillBtn" class="btn btn-primary btn-sm">+ Add Skill</button>
+            </div>
+
+            <!-- Add/Edit Skill Form -->
+            <div class="glass-card" style="padding: 20px; margin-bottom: 24px;">
+              <h4 id="skillFormTitle" style="margin-bottom: 14px; font-size: 1rem; color: var(--text-primary);">Add New Skill</h4>
+              <form id="adminSkillForm">
+                <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px;">
+                  <div class="form-group">
+                    <label class="form-label">Skill Name *</label>
+                    <input type="text" id="skillNameInput" class="form-control" placeholder="e.g. HTML" required>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Category</label>
+                    <input type="text" id="skillCategoryInput" class="form-control" placeholder="Frontend / Backend" required>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Proficiency Level (0 - 100%)</label>
+                    <input type="number" id="skillLevelInput" class="form-control" min="10" max="100" value="85" required>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label">Description / Scope</label>
+                  <input type="text" id="skillDescInput" class="form-control" placeholder="Short description of this skill">
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-sm">Save Skill</button>
+              </form>
+            </div>
+
+            <!-- List of existing skills -->
+            <div id="adminSkillsList">
+              <!-- Injected via admin.js -->
+            </div>
+          </div>
+
+          <!-- TAB 6: MANAGE PROJECTS -->
+          <div id="adminPanel_projects" class="admin-panel">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+              <h3 style="font-size: 1.3rem; color: var(--text-primary); margin: 0;">Manage Projects</h3>
+              <button id="addNewProjectBtn" class="btn btn-primary btn-sm">+ Add Project</button>
+            </div>
+
+            <!-- Add / Edit Project Form -->
+            <div class="glass-card" style="padding: 20px; margin-bottom: 24px;">
+              <h4 id="projectFormTitle" style="margin-bottom: 14px; font-size: 1rem; color: var(--text-primary);">Add New Project</h4>
+              <form id="adminProjectForm">
+                <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 14px;">
+                  <div class="form-group">
+                    <label class="form-label">Project Title *</label>
+                    <input type="text" id="projTitleInput" class="form-control" placeholder="Project Name" required>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Category *</label>
+                    <select id="projCategoryInput" class="form-control">
+                      <option value="Full Stack">Full Stack</option>
+                      <option value="Frontend">Frontend</option>
+                      <option value="Creative">Creative</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label">Description *</label>
+                  <textarea id="projDescInput" class="form-control" rows="3" placeholder="What does this project do?" required></textarea>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
+                  <div class="form-group">
+                    <label class="form-label">Project Image URL</label>
+                    <input type="text" id="projImageInput" class="form-control" placeholder="Image URL">
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Or Upload Image File</label>
+                    <input type="file" id="projImageFileInput" class="form-control" accept="image/*">
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label">Technologies (comma separated)</label>
+                  <input type="text" id="projTechInput" class="form-control" placeholder="React, Node.js, PostgreSQL, Tailwind CSS">
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
+                  <div class="form-group">
+                    <label class="form-label">Live Demo URL</label>
+                    <input type="text" id="projDemoInput" class="form-control" placeholder="https://...">
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Source Code URL</label>
+                    <input type="text" id="projCodeInput" class="form-control" placeholder="https://github.com/...">
+                  </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-sm">Save Project</button>
+              </form>
+            </div>
+
+            <!-- List of existing projects -->
+            <div id="adminProjectsList">
+              <!-- Injected via admin.js -->
+            </div>
+          </div>
+
+          <!-- TAB 7: SOCIAL MEDIA LINKS -->
+          <div id="adminPanel_socials" class="admin-panel">
+            <h3 style="font-size: 1.3rem; margin-bottom: 20px; color: var(--text-primary);">Social Media Profiles</h3>
+            <form id="adminSocialsForm">
+              <div class="form-group">
+                <label class="form-label">GitHub URL</label>
+                <input type="url" id="socGithub" class="form-control">
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">LinkedIn URL</label>
+                <input type="url" id="socLinkedin" class="form-control">
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Twitter / X URL</label>
+                <input type="url" id="socTwitter" class="form-control">
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Email Mailto URL</label>
+                <input type="text" id="socEmail" class="form-control">
+              </div>
+
+              <button type="submit" class="btn btn-primary">Update Social Links</button>
+            </form>
+          </div>
+
+          <!-- TAB 8: MESSAGES INBOX -->
+          <div id="adminPanel_messages" class="admin-panel">
+            <h3 style="font-size: 1.3rem; margin-bottom: 20px; color: var(--text-primary);">Contact Messages Inbox</h3>
+            <div id="adminMessagesList">
+              <!-- Injected via admin.js -->
+            </div>
+          </div>
+
+          <!-- TAB 9: SETTINGS & BACKUP -->
+          <div id="adminPanel_settings" class="admin-panel">
+            <h3 style="font-size: 1.3rem; margin-bottom: 20px; color: var(--text-primary);">Security &amp; Data Backup</h3>
+
+            <!-- Change Password -->
+            <div class="glass-card" style="padding: 22px; margin-bottom: 24px;">
+              <h4 style="margin-bottom: 12px; color: var(--text-primary);">Change Admin Password</h4>
+              <form id="adminChangePassForm">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
+                  <div class="form-group">
+                    <label class="form-label">Current Password</label>
+                    <input type="password" id="currentAdminPassword" class="form-control" required>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">New Password</label>
+                    <input type="password" id="newAdminPassword" class="form-control" required>
+                  </div>
+                </div>
+                <button type="submit" class="btn btn-glass btn-sm">Update Password</button>
+              </form>
+            </div>
+
+            <!-- Export / Import Backup -->
+            <div class="glass-card" style="padding: 22px; margin-bottom: 24px;">
+              <h4 style="margin-bottom: 12px; color: var(--text-primary);">Data Backup &amp; Migration</h4>
+              <p style="font-size: 0.88rem; color: var(--text-secondary); margin-bottom: 16px;">
+                Download an export of all your portfolio data (profile, bio, skills, projects, contact messages) or restore a previous JSON backup.
+              </p>
+              <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+                <button id="adminExportBackupBtn" class="btn btn-primary btn-sm">
+                  Export JSON Backup
+                </button>
+                <label class="btn btn-glass btn-sm" style="cursor: pointer; margin: 0;">
+                  Import Backup File
+                  <input type="file" id="adminImportBackupInput" accept=".json" style="display: none;">
+                </label>
+              </div>
+            </div>
+
+            <!-- Reset to defaults -->
+            <div class="glass-card" style="padding: 22px;">
+              <h4 style="margin-bottom: 8px; color: #ef4444;">Danger Zone: Reset Defaults</h4>
+              <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 14px;">
+                Reset all portfolio data back to the clean initial seed data for Md Rakib Hasan.
+              </p>
+              <button id="adminResetDefaultsBtn" class="btn btn-glass btn-sm" style="color: #ef4444; border-color: rgba(239, 68, 68, 0.4);">
+                Reset All To Initial State
+              </button>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div class="toast-container"></div>
+
+  <!-- Application Scripts -->
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/store.js"></script>
+  <script src="assets/js/app.js"></script>
+  <script src="assets/js/admin.js"></script>
+
+</body>
+</html>
