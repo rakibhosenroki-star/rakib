@@ -18,8 +18,8 @@ class PortfolioStore {
       if (stored) {
         const parsed = JSON.parse(stored);
         const mergedProfile = { ...window.defaultPortfolioData.profile, ...(parsed.profile || {}) };
-        if (!mergedProfile.avatar || mergedProfile.avatar.trim() === "") {
-          mergedProfile.avatar = window.defaultPortfolioData.profile.avatar;
+        if (!mergedProfile.avatar || mergedProfile.avatar.trim() === "" || mergedProfile.avatar.includes("images.unsplash.com/photo-1534528741775-53994a69daeb")) {
+          mergedProfile.avatar = window.defaultPortfolioData.profile.avatar || "assets/images/profile.jpg";
         }
         return {
           ...window.defaultPortfolioData,

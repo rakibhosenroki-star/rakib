@@ -19,7 +19,7 @@ export default function AdminDashboard({ isOpen, onClose, data, onUpdateProfile,
     headline: data?.profile?.headline || 'Web Developer & Creative Digital Creator',
     tagline: data?.profile?.tagline || 'Welcome to My Personal Portfolio',
     summary: data?.profile?.summary || '',
-    avatar: data?.profile?.avatar || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=80',
+    avatar: data?.profile?.avatar || 'assets/images/profile.jpg',
     statusBadge: data?.profile?.statusBadge || 'Available for Projects & Freelance',
     email: data?.profile?.email || 'contact@rakibhasan.dev',
     location: data?.profile?.location || 'Bangladesh (Available Worldwide)',
@@ -35,7 +35,7 @@ export default function AdminDashboard({ isOpen, onClose, data, onUpdateProfile,
         headline: data.profile.headline || '',
         tagline: data.profile.tagline || '',
         summary: data.profile.summary || '',
-        avatar: data.profile.avatar || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=80',
+        avatar: data.profile.avatar || 'assets/images/profile.jpg',
         statusBadge: data.profile.statusBadge || '',
         email: data.profile.email || '',
         location: data.profile.location || '',
@@ -551,7 +551,7 @@ export default function AdminDashboard({ isOpen, onClose, data, onUpdateProfile,
                       <button
                         type="button"
                         onClick={() => {
-                          const def = "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=80";
+                          const def = "assets/images/profile.jpg";
                           setProfileForm(p => ({ ...p, avatar: def }));
                           onUpdateProfile({ ...profileForm, avatar: def });
                           showFeedback('Reset to default photo');

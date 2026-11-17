@@ -10,8 +10,8 @@ const defaultPortfolioData = {
     tagline: "Welcome to My Personal Portfolio",
     headline: "Web Developer & Creative Digital Creator",
     summary: "A passionate and results-driven Web Developer and Creative Digital Creator dedicated to crafting high-performance, elegant, and user-centric digital experiences with modern web technologies.",
-    avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=80",
-    avatarType: "url", // 'url' or 'base64'
+    avatar: "assets/images/profile.jpg",
+    avatarType: "local",
     statusBadge: "Available for Projects & Full-time Opportunities",
     location: "Bangladesh (Available Worldwide)",
     email: "contact@rakibhasan.dev",

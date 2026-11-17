@@ -235,8 +235,8 @@ class AdminController {
 
     if (resetAvatarBtn) {
       resetAvatarBtn.addEventListener("click", () => {
-        const defAvatar = "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=80";
-        this.store.updateProfile({ avatar: defAvatar, avatarType: "url" });
+        const defAvatar = "assets/images/profile.jpg";
+        this.store.updateProfile({ avatar: defAvatar, avatarType: "local" });
         if (avatarPreview) avatarPreview.src = defAvatar;
         if (avatarUrlInput) avatarUrlInput.value = "";
         const heroImg = document.getElementById("heroAvatarImg");
