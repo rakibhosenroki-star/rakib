@@ -1,0 +1,23 @@
+{
+  "name": "rakib-hasan-portfolio",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Md Rakib Hasan - Personal Portfolio Website (Full-Stack & Static Production)",
+  "scripts": {
+    "dev": "npm --prefix frontend run dev",
+    "dev:frontend": "npm --prefix frontend run dev",
+    "dev:backend": "npm --prefix backend run dev",
+    "build": "npm --prefix frontend run build",
+    "preview": "npm --prefix frontend run preview",
+    "install:all": "npm --prefix frontend install && npm --prefix backend install"
+  },
+  "keywords": [
+    "portfolio",
+    "rakib-hasan",
+    "react",
+    "vite",
+    "tailwind"
+  ],
+  "author": "Md Rakib Hasan",
+  "license": "MIT"
+}

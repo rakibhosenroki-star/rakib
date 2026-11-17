@@ -80,10 +80,6 @@ export default function App() {
     }
     return [];
   });
-        message: "Hi Md Rakib Hasan! I love your glassmorphism portfolio and would like to collaborate on an upcoming project."
-      }
-    ];
-  });
 
   const [isAdminOpen, setIsAdminOpen] = useState(false);
 
