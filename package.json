@@ -4,12 +4,9 @@
   "private": true,
   "description": "Md Rakib Hasan - Personal Portfolio Website (Full-Stack & Static Production)",
   "scripts": {
-    "dev": "npm --prefix frontend run dev",
-    "dev:frontend": "npm --prefix frontend run dev",
-    "dev:backend": "npm --prefix backend run dev",
-    "build": "npm --prefix frontend run build",
-    "preview": "npm --prefix frontend run preview",
-    "install:all": "npm --prefix frontend install && npm --prefix backend install"
+    "dev": "node frontend/node_modules/vite/bin/vite.js frontend",
+    "build": "node frontend/node_modules/vite/bin/vite.js build frontend",
+    "preview": "node frontend/node_modules/vite/bin/vite.js preview frontend"
   },
   "keywords": [
     "portfolio",
