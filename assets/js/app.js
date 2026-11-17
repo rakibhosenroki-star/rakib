@@ -110,7 +110,7 @@ class PortfolioApp {
     // Brand Logo & Names
     document.querySelectorAll(".brand-name-text").forEach(el => el.textContent = profile.name || "Md Rakib Hasan");
     const logoEl = document.getElementById("brandLogo");
-    if (logoEl) logoEl.innerHTML = `${profile.brandLogo ? profile.brandLogo.replace('.', '') : 'RAKIB'}<span>.</span>`;
+    if (logoEl) logoEl.innerHTML = `${profile.brandLogo ? profile.brandLogo.replace('.', '') : 'RAKIB'}<span id="brandLogoDot" style="cursor: pointer;" title="RAKIB.">.</span>`;
 
     // Welcome Badge & Headings
     const welcomeBadge = document.getElementById("heroWelcomeBadge");

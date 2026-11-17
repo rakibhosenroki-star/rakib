@@ -18,7 +18,39 @@ class AdminController {
   }
 
   setupEventListeners() {
-    // Open admin modal button
+    // Secret Keyboard Shortcut: Ctrl+Shift+A or Alt+A
+    window.addEventListener("keydown", (e) => {
+      if ((e.ctrlKey && e.shiftKey && e.key.toLowerCase() === "a") || (e.altKey && e.key.toLowerCase() === "a")) {
+        e.preventDefault();
+        this.openDashboard();
+      }
+    });
+
+    // Secret URL Hash Trigger (#admin)
+    if (window.location.hash.toLowerCase() === "#admin") {
+      setTimeout(() => this.openDashboard(), 300);
+    }
+    window.addEventListener("hashchange", () => {
+      if (window.location.hash.toLowerCase() === "#admin") {
+        this.openDashboard();
+      }
+    });
+
+    // Secret Brand Logo Dot Trigger (Double-click on the '.' in RAKIB.)
+    let dotClicks = 0;
+    document.addEventListener("click", (e) => {
+      if (e.target && (e.target.id === "brandLogoDot" || e.target.closest("#brandLogoDot") || e.target.id === "secretFooterAdmin")) {
+        e.preventDefault();
+        dotClicks++;
+        if (dotClicks >= 2) {
+          dotClicks = 0;
+          this.openDashboard();
+        }
+        setTimeout(() => { dotClicks = 0; }, 800);
+      }
+    });
+
+    // Optional legacy button support if present
     const openBtn = document.getElementById("openAdminBtn");
     const openBtnMobile = document.getElementById("openAdminBtnMobile");
     if (openBtn) openBtn.addEventListener("click", () => this.openDashboard());
@@ -333,6 +365,8 @@ class AdminController {
   renderLoginView() {
     document.getElementById("adminAuthGate").style.display = "block";
     document.getElementById("adminDashboardContent").style.display = "none";
+    if (document.getElementById("adminUsernameInput")) document.getElementById("adminUsernameInput").value = "";
+    if (document.getElementById("adminPasswordInput")) document.getElementById("adminPasswordInput").value = "";
   }
 
   renderAuthenticatedView() {

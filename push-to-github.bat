@@ -6,6 +6,8 @@ echo   https://github.com/rakibhosenroki-star/rakib.git
 echo ========================================================
 echo.
 
+set "PATH=C:\Program Files\Git\cmd;%PATH%"
+
 where git >nul 2>nul
 if %ERRORLEVEL% NEQ 0 (
     echo [ERROR] Git is not installed on this system!

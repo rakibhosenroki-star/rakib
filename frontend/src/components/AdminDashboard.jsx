@@ -8,7 +8,7 @@ export default function AdminDashboard({ isOpen, onClose, data, onUpdateProfile,
   const { theme, toggleTheme } = useTheme();
 
   const [activeTab, setActiveTab] = useState('overview');
-  const [loginCreds, setLoginCreds] = useState({ username: 'admin', password: 'rakib2026' });
+  const [loginCreds, setLoginCreds] = useState({ username: '', password: '' });
   const [loginError, setLoginError] = useState('');
   const [statusMsg, setStatusMsg] = useState('');
 
@@ -195,10 +195,6 @@ export default function AdminDashboard({ isOpen, onClose, data, onUpdateProfile,
                 Log In
               </button>
             </form>
-
-            <div className="mt-4 p-2.5 rounded-lg bg-white/5 text-[11px] text-slate-400">
-              Default: <strong>admin</strong> | Password: <strong>rakib2026</strong>
-            </div>
           </div>
         ) : (
           /* Authenticated Dashboard Body */

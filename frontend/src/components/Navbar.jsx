@@ -20,7 +20,7 @@ export default function Navbar({ onOpenAdmin }) {
       <nav className="max-w-6xl mx-auto flex items-center justify-between px-6 py-3.5 rounded-full bg-slate-900/60 dark:bg-slate-950/60 backdrop-blur-xl border border-white/10 shadow-2xl transition-all">
         {/* Brand Logo */}
         <a href="#home" className="text-xl font-black tracking-tight text-white flex items-center">
-          RAKIB<span className="text-purple-500">.</span>
+          RAKIB<span className="text-purple-500 cursor-pointer select-none" onDoubleClick={onOpenAdmin} title="RAKIB.">.</span>
         </a>
 
         {/* Desktop Links */}
@@ -48,15 +48,6 @@ export default function Navbar({ onOpenAdmin }) {
             {theme === 'dark' ? <Sun size={17} /> : <Moon size={17} />}
           </button>
 
-          {/* Admin Dashboard */}
-          <button
-            onClick={onOpenAdmin}
-            className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-white/5 border border-white/10 text-slate-200 hover:bg-white/10 hover:border-purple-500/40 transition-all"
-          >
-            <Lock size={13} className="text-purple-400" />
-            <span>Admin</span>
-          </button>
-
           {/* Mobile Hamburger */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -81,16 +72,6 @@ export default function Navbar({ onOpenAdmin }) {
               {link.label}
             </a>
           ))}
-          <button
-            onClick={() => {
-              setMobileMenuOpen(false);
-              onOpenAdmin();
-            }}
-            className="w-full mt-2 py-2.5 rounded-xl bg-gradient-to-r from-indigo-500 to-purple-600 text-white font-semibold text-sm flex items-center justify-center gap-2"
-          >
-            <Lock size={15} />
-            <span>Admin Dashboard</span>
-          </button>
         </div>
       )}
     </header>

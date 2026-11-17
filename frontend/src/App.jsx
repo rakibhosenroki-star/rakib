@@ -113,6 +113,33 @@ export default function App() {
 
   const [isAdminOpen, setIsAdminOpen] = useState(false);
 
+  // Secret Hotkey & URL Hash triggers for Admin access
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if ((e.ctrlKey && e.shiftKey && e.key.toLowerCase() === 'a') || (e.altKey && e.key.toLowerCase() === 'a')) {
+        e.preventDefault();
+        setIsAdminOpen(true);
+      }
+    };
+
+    const handleHash = () => {
+      if (window.location.hash.toLowerCase() === '#admin') {
+        setIsAdminOpen(true);
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    window.addEventListener('hashchange', handleHash);
+    if (window.location.hash.toLowerCase() === '#admin') {
+      setIsAdminOpen(true);
+    }
+
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+      window.removeEventListener('hashchange', handleHash);
+    };
+  }, []);
+
   useEffect(() => {
     localStorage.setItem('rakib_react_portfolio_state', JSON.stringify(portfolioData));
   }, [portfolioData]);
