@@ -1,5 +1,6 @@
 @echo off
 title Md Rakib Hasan - Development Server
+set "PATH=C:\Program Files\nodejs;%APPDATA%\npm;%PATH%"
 echo ========================================================
 echo   Starting Portfolio Dev Server (npm run dev)...
 echo ========================================================
